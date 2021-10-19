@@ -1,0 +1,293 @@
+{% extends 'faculity_nav.html' %}
+
+{% block title %} Edit Student 
+{% endblock title %}
+{% block body %}
+
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5 ml-auto">	
+			
+    <div class="card border-1">
+  
+              	
+                <h2 class="pl-2"><b><span class="fa fa-pencil"> </span> Edit Student</b></h2>
+            {% if suc %}
+              <div class="alert alert-success card m-2">
+  <strong><span class="fa fa-check-square"> </span> Success!</strong> Student Update Sucessfull
+</div>
+            {% else %}
+            {% endif %}
+           <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+
+                <div class=" col-md-6" id="msgbox" style="display: none;">
+                 <div class="alert alert-danger" role="alert">
+Password Not Match
+</div>
+        </div>
+        <br>
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <div class="form-group row">
+                   
+				   <div class="col col-md-6">
+				   <label><b><span class="fa fa-user"></span> UserName :</b></label>
+
+                    <input type="text" class="form-control" name="stdnt_username" placeholder="Enter userName *"
+                        value="{{studentData.stdnt_UserName}}" required />
+						</div>
+						<div class="col col-md-6">
+				   <label><b><span class="fa fa-sort-amount-down"></span>  Roll Number :</b></label>
+
+                    <input type="text" class="form-control" name="stdnt_Roll" placeholder="Enter userName *"
+                        value="{{studentData.stdnt_Roll}}" required />
+						</div>
+
+                </div>
+
+                <div class="form-group">
+				
+                    <label><b><span class="fa fa-unlock-alt"></span> Password :</b></label>
+                    <input type="password" class="form-control" placeholder="Password *" value="{{studentData.stdnt_PWD}}" id="pwd" required />
+                </div>
+                <div class="form-group">
+                    <label><b><span class="fa fa-unlock-alt"></span> Confirm Password :</b></label>
+                    <input type="password" class="form-control" name="stdnt_PWD" placeholder="Confirm Password *"
+                        value="{{studentData.stdnt_PWD}}" onchange="checkpwd(this.value)" id="cnf_pwd" required />
+                </div>
+				<div class="form-group">
+                    <label><b><span class="fa fa-envelope-open-text"></span> Email :</b></label>
+
+                    <input type="email" class="form-control" name="stdnt_Email" placeholder="Student's Email *" value="{{studentData.stdnt_Email}}"
+                        required />
+                </div>
+                <div class="form-group">
+                    
+
+					
+                </div>
+				<div class="form-group row">
+                   
+				   <div class="col col-md-6">
+				  <div class="maxl">
+                        <b><span class="fa fa-venus-mars"></span> Gender :</b>
+                        <br>
+                        <label class="radio inline">
+                            <input type="radio" name="stdnt_Gender" value="True" 
+                            
+                            {% ifequal studentData.stdnt_Gender True  %}
+                            
+                            checked
+                            
+                            {% endifequal %}
+                            
+                            >
+                            <span> Male </span>
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="stdnt_Gender" value="False" 
+                            
+                            
+                            {% ifequal studentData.stdnt_Gender False  %}
+                            
+                            checked
+                            
+                            {% endifequal %}
+                            
+                            >
+                            <span>Female </span>
+                        </label>
+                    </div>
+						</div>
+						<div class="col col-md-6">
+                        <b><span class="fa fa-user-alt-slash"></span> Account Status :</b>
+                        <br>
+                        <label class="radio inline">
+                            <input type="radio" name="stdnt_status" value="True" 
+                            
+                             {% ifequal studentData.stdnt_is_Active True  %}
+                            
+                            checked
+                            
+                            {% endifequal %}
+
+                            >
+                            Active
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="stdnt_status" value="False"
+                            
+                             {% ifequal studentData.stdnt_is_Active False  %}
+                            
+                            checked
+                            
+                            {% endifequal %}
+                            
+                            >
+                            <span>De Active </span>
+                        </label>
+						</div>
+
+                </div>
+				
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+				  <label><b><span class="fa fa-file-signature"></span> Full Name :</b></label> <br>
+
+                    <input type="text" class="form-control" name="stdnt_NM" placeholder="Full Name" value="{{studentData.stdnt_Name}}"
+                        required />
+
+                   
+                </div>
+				<div class="form-group">
+				  <label><b><span class="fa fa-code-branch"></span> Branch :</b></label> <br>
+
+                   <select class="form-control" name="stdnt_Branch" id="stdnt_Branch" onchange="selectCheck();" required>
+        <option value="none"> Select </option>
+        <option value="Computer Science & Engineering"
+        
+         {% ifequal studentData.stdnt_Branch "Computer Science & Engineering"  %}
+                            
+                            selected
+                            
+                            {% endifequal %}
+        
+        > Computer Science & Engineering </option>
+        <option value="Electronic & Communication Engineering"
+        
+        {% ifequal studentData.stdnt_Branch "Electronic & Communication Engineering"  %}
+                            
+                            selected
+                            
+                            {% endifequal %}
+
+
+        > Electronic & Comm. Engineering </option>
+		<option value="Information Technology"
+        
+        {% ifequal studentData.stdnt_Branch "Information Technology"  %}
+                            
+                            selected
+                            
+                            {% endifequal %}
+        
+        > Information Technology </option>
+		<option value="Civil Engineering"
+        
+        {% ifequal studentData.stdnt_Branch "Civil Engineering"  %}
+                            
+                            selected
+                            
+                            {% endifequal %}
+        
+        > Civil Engineering </option>
+
+        </select>
+
+                   
+                </div>
+				<div class="form-group">
+                    <label><b><span class="fa fa-calendar-day"></span> Date of Birth :</b></label>
+
+                    <input type="date" minlength="10" maxlength="10" name="stdnt_DOB" class="form-control"
+                    value="{{studentData.stdnt_DOB}}" required/>
+                </div>
+                
+                <div class="form-group">
+                    <label><b><span class="fa fa-phone-square-alt"></span> Mobile Number :</b></label>
+
+                    <input type="text" minlength="10" maxlength="10" name="stdnt_mbl" class="form-control"
+                        placeholder="Phone *" value="{{studentData.stdnt_Mobile}}" />
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+	 <div class="form-group">
+<input type="hidden" name="id" value={{studentData.stdnt_id}} />
+                   
+<input class="btn btn-success ml-3" type="submit" value="Update Student" id="submit_btn">
+    <br>
+                </div>
+
+
+
+    </form>
+    </div>
+    </div>
+
+
+</div>
+</div>
+</body>
+<script>
+openNav();
+
+
+
+if($('#stdnt_Branch').val()=='none')
+{
+                $('#submit_btn').attr('disabled','disabled');
+
+}
+function selectCheck() {
+var selectval = $('#stdnt_Branch'); 
+
+ if (selectval.val()=='none') {
+
+           
+            $('#submit_btn').attr('disabled','disabled');
+			alert('Select Branch');
+
+
+
+        } else 
+           
+            $('#submit_btn').attr('disabled',false);
+
+
+        
+
+}
+
+function checkpwd(cnf_pwd) {
+        var pwdID = $('#pwd').val()
+
+        var msg = $('#msgbox');
+        var btn_submit = ('#submit_btn');
+
+        if (pwdID != cnf_pwd) {
+
+            console.log('not matched');
+            msg.css('display', 'block');
+            // $("#form").submit(function (e) {
+            //     alert('Check Passwords');
+            //     e.preventDefault(e);
+            // });
+            $('#submit_btn').attr('disabled','disabled');
+
+
+
+        } else if (pwdID == cnf_pwd) {
+            console.log('matched');
+            msg.css('display', 'none');
+            $('#submit_btn').attr('disabled',false);
+			
+				if($('#stdnt_Branch').val()=='none')
+				{
+								$('#submit_btn').attr('disabled','disabled');
+
+				}
+
+
+        }
+}
+
+</script>
+{% endblock %}
+</html>

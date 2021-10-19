@@ -1,0 +1,133 @@
+{% extends 'student_nav.html' %}
+
+{% block title %} Dashboard 
+{% endblock title %}
+{% block body %}
+
+
+
+<div id="main">
+	<div class="container py-5 my-5">
+
+		<div class="row">
+
+			<div class="col-sm-12 col-md-3">
+				<div class="btnb1  m-1">
+					<table width="100%" border="0" cellspacing="5" cellpadding="5">
+						<tbody>
+							<tr>
+								<td>
+									<p class="h5  text-dark p-0 m-0">Total Student Registred </p>
+									{% comment %} <p class="h6  text-dark p-0 m-0">Students in you control</p> {% endcomment %}
+								</td>
+								<td>
+									<p class="h1 text-center text-dark pb-3 ">X</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-3">
+				<div class="btnb1  m-1">
+					<table width="100%" border="0" cellspacing="5" cellpadding="5">
+						<tbody>
+							<tr>
+								<td>
+									<p class="h5  text-dark p-0 m-0">Student Submitted Assignments</p>								</td>
+								<td>
+									<p class="h1 text-center text-dark pb-3 ">X</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-3">
+				<div class="btnb1  m-1">
+					<table width="100%" border="0" cellspacing="5" cellpadding="5">
+						<tbody>
+							<tr>
+								<td>
+									<p class="h5  text-dark p-0 m-0">Pending Students Assignments</p>
+								</td>
+								<td>
+									<p class="h1 text-center text-dark pb-3 ">X</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-3">
+				<div class="btnb1  m-1">
+					<table width="100%" border="0" cellspacing="5" cellpadding="5">
+						<tbody>
+							<tr>
+								<td>
+									<p class="h5  text-dark p-0 m-0">Greater than 60% Plagiarism</p>
+								</td>
+								<td>
+									<p class="h1 text-center text-dark pb-3 ">X</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12 col-md-8 p-3" align="center">
+				<div class="blockcover">
+					<img src="images/download.png" width="80%" />
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-4 p-3 " align="center">
+				<div class="blockcover">
+					<h2>Last 5 Submittions</h2>
+
+					<marquee direction="up" behavior="slide" scrollamount="3">
+						<a href="usr"> user X has Submitted on X time </a>
+					</marquee>
+
+					<marquee direction="up" behavior="slide" scrollamount="3">
+						<a href="usr"> user X has Submitted on X time </a>
+					</marquee>
+
+					<marquee direction="up" behavior="slide" scrollamount="3">
+						<a href="usr"> user X has Submitted on X time </a>
+					</marquee>
+
+					<marquee direction="up" behavior="slide" scrollamount="3">
+						<a href="usr"> user X has Submitted on X time </a>
+					</marquee>
+
+					<marquee direction="up" behavior="slide" scrollamount="3">
+						<a href="usr"> user X has Submitted on X time </a>
+					</marquee>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+openNav();
+</script>
+{% endblock %}
+</html>

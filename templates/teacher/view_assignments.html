@@ -1,0 +1,170 @@
+{% extends 'faculity_nav.html' %}
+
+{% block title %} View Assignments
+{% endblock title %}
+{% block body %}
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5">	
+
+    <div class="card col-md-12 border-1">
+              	<br>
+                <h2 class="pl-2"><b><span class="fa fa-clipboard-list"> </span> View Assignments</b></h2>
+                {% ifequal id 'invalid' %}
+                            
+ <div class="alert alert-danger card m-2">
+  <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
+</div>                            
+                            {% endifequal %}
+
+  {% ifequal request.GET.del 'fail' %}
+                            
+ <div class="alert alert-danger card m-2">
+  <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
+</div>                            
+                            {% endifequal %}
+
+
+
+                            {% ifequal request.GET.del 'succ' %}
+                            
+ <div class="alert alert-success card m-2">
+  <strong><span class="fa fa-check-square"> </span> Sucessfull!</strong> Delete Student Sucessfull
+</div>                            
+                            {% endifequal %}
+
+
+                           
+
+             <div class="conainer bg-white table-responsive-sm ml-2">
+        <br>
+        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered" id="list_assignments">
+            <thead class="table-dark">
+                <th>S.I</th>
+                <th>Student Roll No</th>
+                <th>Submitted Date</th>
+                <th>Submitted File</th>
+                <th>Assignment Status</th>
+                <th>Review</th>
+                <th>Actions</th>
+               
+
+            </thead>
+            <tbody>
+
+             {% for data in AssignmentListData  %}
+             
+                    <tr>
+                     assignment_submittion_id = models.AutoField(primary_key=True)
+    assignment_submited_Roll= models.CharField(max_length=50)
+    assignment_submitted_File = models.FileField(upload_to='files/')
+    assignment_submittion_date = models.DateField(auto_now=False, auto_now_add=True)
+    assignment_submittion_status = models.CharField(max_length=2)
+    assignment_submittion_review = models.CharField(max_length=250)
+
+                        <td id="{{AssignmentListData.assignment_submittion_id}}_assignment_id">{{AssignmentListData.assignment_submittion_id}}</td>
+                        <td id="{{AssignmentListData.assignment_submited_Roll}}_assignment_submited_Roll">{{AssignmentListData.assignment_submited_Roll}}</td>
+                        <td id="{{AssignmentListData.assignment_submittion_date}}_assignment_submittion_date">{{AssignmentListData.assignment_submittion_date}}</td>
+                        <td id="{{AssignmentListData.assignment_submitted_File}}_assignment_submitted_File"><a href="{{AssignmentListData.assignment_submitted_File}}"
+                        >{{AssignmentListData.assignment_submitted_File}}</a></td>
+
+
+                       
+                        <td id="{{AssignmentListData.assignment_submittion_status}}_assignment_submittion_status">{{AssignmentListData.assignment_submittion_status}}   </td>
+                        <td id="{{AssignmentListData.assignment_submittion_review}}_assignment_submittion_status">{{AssignmentListData.assignment_submittion_review}}   </td>
+                        
+                        <td>
+                            <center>
+                            <a href="teach_view_assignment?id={{AssignmentListData.assignment_submittion_id}}">
+                            <button type="button" class="btn btn-primary"> 
+
+                            <span class="fa fa-pencil"> </span> View
+                            
+                            </button>
+                            </a>
+{% comment %}                            
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="assignModalValue(this.value);" value="{{data.assignment_id}}">
+<span class="fa fa-trash"> </span> Delete</button> {% endcomment %}
+
+                            </center> 
+
+                        </td>
+                    </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <br>
+    </div>
+
+
+           
+
+
+</div>
+</div>
+
+{% comment %} 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <b>Assignment ID : </b> <span id="assignmentID"></span>
+        <br>
+        <b>Directory: </b> <span id="dir_assign"></span>
+        <br>
+        <b>Last Date : </b> <span id="last_date_assign"></span>
+        <br>
+        <b>Status : </b> <span id="status_assign"></span>
+
+      </div>
+      <div class="modal-footer">
+      
+<a href="teach_del_stdnt?id={{data.stdnt_id}}" id="assignmentDeleteLINK">
+<button type="button" class="btn btn-danger"><span class="fa fa-minus-circle"></span>  Confirm</button></a>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-window-close"></span> Close</button>
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+</body>
+<script>
+openNav();
+ $(document).ready(function() {
+        $('#list_assignments').DataTable();
+    });
+    /*
+function assignModalValue(idVar) {
+var fullIDSelector = "#"+idVar;
+
+var AssignmentID=fullIDSelector+"_assignment_id";
+var AssinmentDIR=fullIDSelector+"_assignment_DIR";
+var AssignemtnStatus=fullIDSelector+"_assignment_status";
+var AssignmentLastDate=fullIDSelector+"_assignment_Last_Date";
+
+var id= $(AssignmentID).text();
+$("#assignmentID").text($(AssignmentID).text());
+$("#dir_assign").text($(AssinmentDIR).text());
+$("#last_date_assign").text($(AssignmentLastDate).text());
+$("#status_assign").text($(AssignemtnStatus).text());
+
+
+var sendAttrLink = "teach_del_assignment?id="+id;
+
+$("#assignmentDeleteLINK").attr('href',sendAttrLink);
+
+}*/
+
+</script>
+{% endblock %}
+</html>

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Register New Teacher{% endblock title %}
+
+{% block body %}
+<br>
+
+<body class="cotainer ">
+    <div class="container-lg card border-1">
+        <legend>
+            <center>
+                <h2><b>Register as Teacher</b></h2>
+            </center>
+        </legend><br>
+        <div class="card-body">
+            <form action="#" method="post" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+
+                <div class=" col-md-6" id="msgbox" style="display: none;">
+                 <div class="alert alert-danger" role="alert">
+Password Not Match
+</div>
+        </div>
+        <br>
+        <div class="row register-form">
+            <div class="col-md-6">
+                <div class="form-group">
+                  
+                    <label><b>UserName :</b></label>
+
+                    <input type="text" class="form-control" name="teach_UserName" placeholder="UserName *"
+                        value="" required />
+                </div>
+
+                <div class="form-group">
+                    <label><b>Password :</b></label>
+                    <input type="password" class="form-control" placeholder="Password *" value="" id="pwd" required />
+                </div>
+                <div class="form-group">
+                    <label><b>Confirm Password :</b></label>
+                    <input type="password" class="form-control" name="teach_PWD" placeholder="Confirm Password *"
+                        value="" onchange="checkpwd(this.value)" id="cnf_pwd" required />
+                </div>
+                <div class="form-group">
+                    <div class="maxl">
+                        <b>Gender :</b>
+                        <label class="radio inline">
+                            <input type="radio" name="tech_Gender" value="True" checked>
+                            <span> Male </span>
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="tech_Gender" value="False">
+                            <span>Female </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label><b>Full Name :</b></label> <br>
+
+                    <input type="text" class="form-control" name="teach_Name" placeholder="Full Name" value=""
+                        required />
+
+                    
+                </div>
+                <div class="form-group">
+                    <label><b>Email :</b></label>
+
+                    <input type="email" class="form-control" name="teach_Email" placeholder="Your Email *" value=""
+                        required />
+                </div>
+                <div class="form-group">
+                    <label><b>Phone :</b></label>
+
+                    <input type="text" minlength="10" maxlength="10" name="teach_Mobile" class="form-control"
+                        placeholder="Your Phone *" value="" />
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <center><input class="btn-primary btn col-md-2" type="submit" value="Sign Up" id="submit_btn"></center>
+    <br>
+
+
+    </form>
+    </div>
+    </div>
+</body>
+
+<script>
+    function checkpwd(cnf_pwd) {
+        var pwdID = $('#pwd').val()
+
+        var msg = $('#msgbox');
+        var btn_submit = ('#submit_btn');
+
+        if (pwdID != cnf_pwd) {
+
+            console.log('not matched');
+            msg.css('display', 'block');
+            // $("#form").submit(function (e) {
+            //     alert('Check Passwords');
+            //     e.preventDefault(e);
+            // });
+            $('#submit_btn').attr('disabled','disabled');
+
+
+
+        } else if (pwdID == cnf_pwd) {
+            console.log('matched');
+            msg.css('display', 'none');
+            $('#submit_btn').attr('disabled',false);
+
+
+        }
+
+    }
+
+</script>
+{% endblock body %}

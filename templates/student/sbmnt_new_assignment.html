@@ -1,0 +1,115 @@
+{% extends 'student_nav.html' %}
+
+{% block title %} List Assignments
+{% endblock title %}
+{% block body %}
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5">	
+
+    <div class="card col-md-12 border-1">
+              	<br>
+                <h2 class="pl-2"><b><span class="fa fa-clipboard-list"> </span> Assignments</b></h2>
+                {% ifequal request.GET.id 'invalid' %}
+                            
+ <div class="alert alert-danger card m-2">
+  <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
+</div>                            
+                            {% endifequal %}
+
+{% ifequal request.GET.suc 'updated' %}
+                            
+ <div class="alert alert-success card m-2">
+  <strong><span class="fa fa-check-circle"> </span> Sucessfull!</strong> File Uploaded Sucessfully.!
+</div>                            
+                            {% endifequal %}                            
+
+
+                           
+
+             <div class="conainer bg-white table-responsive-sm ml-2">
+        <br>
+        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered" id="list_assignments">
+            <thead class="table-dark">
+                <th>S.I</th>
+                <th>Question(s)</th>
+                <th>Max Marks</th>
+                <th>Last Date</th>
+                <th>Status</th>
+                <th>FileType Acceptable</th>
+
+                <th>Action</th>
+               
+
+            </thead>
+            <tbody>
+
+             {% for data in AssignmentListData  %}
+             
+                    <tr>
+                        <td id="{{data.assignment_id}}_assignment_id">{{data.assignment_id}}</td>
+                        
+                        <td id="{{data.assignment_id}}_assignment_QN">{{data.assignment_QN}} </td>
+                        <td id="{{data.assignment_id}}_assignment_Marks">{{data.assignment_Marks}}</td>
+                        <td id="{{data.assignment_id}}_assignment_Last_Date">{{data.assignment_Last_Date}}</td>
+
+                        <td id="{{data.assignment_id}}_assignment_status">
+                        
+                         
+                            {% ifequal data.assignment_status True  %}
+                            
+                            Open
+                            
+                            {% endifequal %}
+                            
+
+                            {% ifequal data.assignment_status False  %}
+                            
+                            Closed
+                            
+                            {% endifequal %} </td>
+
+                             </td>
+
+                        
+                        <td id="{{data.assignment_FileType}}_assignment_Type">{{data.assignment_FileType}}</td>
+<td>
+                            <center>
+                            <a href="stdnt_upload_assignment?id={{data.assignment_id}}">
+                            <button type="button" class="btn btn-primary"> 
+
+                            <span class="fa fa-upload"> </span> Upload
+                            
+                            </button>
+                            </a>
+
+                            </center> 
+
+                        </td>
+                    </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <br>
+    </div>
+
+
+           
+
+
+</div>
+</div>
+
+
+
+</body>
+<script>
+openNav();
+ $(document).ready(function() {
+        $('#list_assignments').DataTable();
+    });
+</script>
+{% endblock %}
+</html>

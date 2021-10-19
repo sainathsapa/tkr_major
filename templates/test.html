@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Page Not Found 
+{% endblock title %}
+{% block body %}
+
+<body>
+
+<form method="POST" class="post-form" action="/test">  
+        {% csrf_token %}  
+    <div class="container">  
+<br>  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <h3>Enter Details</h3>  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Student Id:</label>  
+    <div class="col-sm-4">  
+      {{ form.studentID }}  
+    </div>  
+  </div>  
+  <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Student Name:</label>  
+    <div class="col-sm-4">  
+      {{ form.studentName }}  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Student Email:</label>  
+    <div class="col-sm-4">  
+      {{ form.studentEmail }}  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Student Usernaeme:</label>  
+    <div class="col-sm-4">  
+      {{ form.studentUserName }}  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <button type="submit" class="btn btn-primary">Submit</button>  
+    </div>  
+  </div>  
+    </div>  
+</form>  </body>
+{% endblock %}
+</html>
+

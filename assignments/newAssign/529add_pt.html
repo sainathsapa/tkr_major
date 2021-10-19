@@ -1,0 +1,42 @@
+<h1>Add Patient</h1>
+
+<form action="add_pt.php" method="post">
+    <label for="FirstName">First Name : </label>
+    <input type="text" class="" name="patientFName" required>
+    <br />
+    <label for="LastName">Last Name : </label>
+    <input type="text" class="" name="patientLName" required>
+    <br />
+    <label for="Age">Age: </label>
+    <input type="text" class="" name="patientAge" maxlength="2" required>
+    <br />
+    <label for="Aadhar">Aadhar: </label>
+    <input type="text" class="" name="patientAadhar" maxlength="12">
+    <br />
+    <label for="Mobile">Mobile: </label>
+    <input type="tel" class="" name="patientMobile" maxlength="10" required>
+    <br />
+    <label for="Email">Email: </label>
+    <input type="email" class="" name="patientEmail">
+    <br />
+    <label for="Address">Address: </label><br />
+    <textarea type="address" class="" name="patientAddress" cols="15" rows="5"></textarea>
+    <br />
+    <label for="City">City: </label><br />
+    <input type="text" class="" name="patientCity" required>
+    <br />
+    <label for="PinCode">Pincode: </label><br />
+    <input type="text" class="" name="patientPinCode" required maxlength="6">
+    <br />
+    <input type="hidden" name="patientAssignedCunsultantID" value="doc_1">
+    <label for="Treatment  Plan">TreatPlan: </label><br />
+    <select name="patientTreatmentPlan">
+        <option value="test1">Test 1</option>
+        <option value="test2">Test 2</option>
+        <option value="test3">Test 3</option>
+
+    </select>
+    <br>
+    <input type="submit" value="submit" name="submit">
+
+</form>

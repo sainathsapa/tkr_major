@@ -1,0 +1,251 @@
+/* CSS Document */
+
+.dashboard-top-menu {
+  background: white;
+  box-shadow: 12px 2px 12px #CCC;
+  padding: 1% !important;
+  z-index: 99;
+}
+
+.dashboard-top-menu .container {
+  width: 90% !important;
+  max-width: 90%
+}
+
+.nav-link {
+  color: #1ea6c2;
+  font-weight: bold !important;
+}
+
+.dropdown-menu {
+  padding: 5% !important;
+  margin-left: -25px !important;
+  margin-top: 10px !important;
+}
+
+.dropdown-item {
+  font-weight: 600 !important;
+}
+
+.dropdown-menu li:last-child {
+  background: #1ea6c2;
+  border-radius: 5px;
+  color: white !important;
+  transition: ease all 0.5s;
+}
+
+.dropdown-item:hover {
+  background: #ccc !important;
+  border-radius: 5px;
+  transition: ease all 0.5s;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 0px;
+}
+
+.btntoggle {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background: #ececec;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btntoggle:hover {
+  background: #1ea6c2;
+  color: white;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 130px;
+  left: 0;
+  background-color: #fbfbfb;
+  box-shadow: 3px -2px 12px #cccccc96;
+  overflow-x: hidden;
+  transition: 0.5s;
+  border-right: 1px solid #dae0e5;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav #cbtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  margin-left: 50px;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+#cbtn {
+  display: none;
+  font-size: 15px;
+}
+
+.card-body {
+  padding: 5px !important
+}
+
+.card-header {
+  padding: 5px 0px !important
+}
+
+.sidenav a {
+  font-size: 15px !important;
+  color: #232323 !important;
+  display: block;
+  transition: 0.5s;
+  font-weight: 600;
+}
+
+.sidenav a:hover {
+  color: #1ea6c2 !important;
+  text-decoration: none !important;
+}
+
+.card-header .fa {
+  margin-right: 10px;
+}
+
+.pf {
+  margin: auto;
+  padding: 5%
+}
+
+#main {
+  padding-top: 100px;
+  background: #f1f4f6;
+}
+
+#main .container {
+  max-width: 100%
+}
+
+.btnb1 {
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid gainsboro;
+  box-shadow: 1px 8px 0px 0px #54545417;
+}
+
+.blockcover {
+  background: white;
+  border: 1px solid #cccccc6e;
+  box-shadow: 4px 8px 1px 0px #cccccc6e;
+  margin: 8px;
+}
+
+marquee {
+  font-size: 20px;
+  text-align: center;
+  background: #D9D9D9;
+  padding: 8px 20px;
+  margin: 1% 3%;
+}
+
+.copyright {
+  height: 80px;
+  background: #fff;
+  line-height: 80px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.color {
+  color: #1ea6c2 !important;
+}
+
+.dinputprem {
+  padding: 7px;
+  font-size: 20px;
+  outline: none;
+  border: 1px solid #cacaca;
+  border-radius: 50px;
+  background: #f9f9f9;
+  width: 100%;
+  padding-left: 15px;
+}
+
+.dinputprem:focus {
+  border: 1px solid #059cbb;
+}
+
+label {
+  font-size: 18px;
+  margin-left: 5px;
+  font-weight: bold;
+  color: #525252;
+  transition: ease all 0.5s;
+}
+
+textarea {
+  border-radius: 10px !important;
+  resize: none
+}
+
+.m5 {
+  margin: 3rem;
+}
+
+@media screen and (max-width: 640px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+  .dashboard-top-menu {
+    padding-top: 5px;
+  }
+  .dashboard-top-menu .navbar-nav {
+    display: none !important
+  }
+  .btntoggle {
+    border-radius: 0;
+    background: transparent;
+    color: #059cbb !important;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px !important;
+    float: left;
+    margin-top: 18px;
+    margin-left: -13px;
+    margin-right: 20px;
+  }
+  .btn-sm {
+    margin-top: 10px;
+  }
+  .m5 {
+    margin: 5px;
+  }
+  .table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

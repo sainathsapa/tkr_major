@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"
+    />
+
+    <link rel="stylesheet" href="/static/styles/custom.css" />
+    <link rel="icon" href="/static/images/logo.jpg" />
+    <title>
+      {% block title %}{% endblock title %} | TKR College of Engineering
+    </title>
+
+    <center>
+      <img src="/static/images/banner.png" class="banner" />
+      <img src="/static/images/accre.jpg" />
+    </center>
+
+    <nav class="navbar navbar-expand-lg navbar-dark nav-menu bg-warning">
+      <div class="container">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbar10"
+        >
+          <span class=""><i class="icon-col fas fa-bars"></i> </span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar10">
+          <ul class="navbar-nav nav-fill w-100">
+            <li class="nav-item">
+              <a class="nav-link" href="/"  id="hm">
+                <i class="icon-col fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropbtn" href="/departments" id="dept"
+                ><i class="icon-col fas fa-sitemap"></i> Departments</a
+              >
+              <div class="dropdown-content">
+              <a class="nav-link-drop"href="#">Link 1</a>
+              <a class="nav-link-drop"href="#">Link 1</a>
+              <a class="nav-link-drop"href="#">Link 1</a>
+              
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/placements"
+                ><i class="icon-col fas fa-building"></i> Placements</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about"
+                ><i class="icon-col fas fa-info"></i> About Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact"
+                ><i class="icon-col fas fa-mail-bulk"></i> Contact Us</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/portal"
+                ><i class="icon-col fas fa-id-badge"></i> Portal</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      </nav>
+      {% comment %}
+    
+
+    {% if messages %} {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show my-0"
+      role="alert"
+    >
+      <strong>{{ message }}</strong>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% endif %} {% endcomment %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/237a478208.js"
+      crossorigin="anonymous"
+    ></script>
+      </head>
+
+      {% block body %}
+
+      {% endblock %}
+
+

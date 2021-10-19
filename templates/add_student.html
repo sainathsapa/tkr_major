@@ -1,0 +1,40 @@
+{% extends 'faculity_nav.html' %}
+
+{% block title %} Page Not Found 
+{% endblock title %}
+{% block body %}
+
+<body>
+
+
+
+<form method="POST" class="post-form" action="/add_stdnt">  
+        {% csrf_token %}  
+    <div class="container">  
+<br>  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <h3>Enter Details</h3>  
+    </div>  
+  </div>  
+  
+  <!-- Roll Num :
+  <input type="text" name="stdnt_Roll_Num" id="stdnt_Roll_Num_id"> -->
+  
+  {{form.stdnt_Roll_Num}}
+  {{form.stdnt_Name}}
+  {{form.stdnt_Branch}}
+  {{form.stdnt_Email}}
+  {{form.stdnt_Mobile}}
+  {{form.stdnt_User_ID}}
+  {{form.stdnt_PWD}}
+    
+    <button type="submit" class="btn btn-primary">Submit</button>  
+    </div>  
+  </div>  
+    </div>  
+</form>  </body>
+{% endblock %}
+</html>
+

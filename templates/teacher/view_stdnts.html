@@ -1,0 +1,148 @@
+{% extends 'faculity_nav.html' %}
+
+{% block title %} View Student 
+{% endblock title %}
+{% block body %}
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5">	
+
+    <div class="card col-md-12 border-1">
+              	
+                <h2 class="pl-2"><b><span class="fa fa-users"> </span> View Students</b></h2>
+                {% ifequal id 'invalid' %}
+                            
+ <div class="alert alert-danger card m-2">
+  <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
+</div>                            
+                            {% endifequal %}
+
+  {% ifequal request.GET.del 'fail' %}
+                            
+ <div class="alert alert-danger card m-2">
+  <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
+</div>                            
+                            {% endifequal %}
+
+
+
+                            {% ifequal request.GET.del 'succ' %}
+                            
+ <div class="alert alert-success card m-2">
+  <strong><span class="fa fa-check-square"> </span> Sucessfull!</strong> Delete Student Sucessfull
+</div>                            
+                            {% endifequal %}
+
+
+                           
+
+             <div class="conainer bg-white table-responsive-sm ml-2">
+        <br>
+        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered" id="view_stdnts">
+            <thead class="table-dark">
+                <th>S.I</th>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Branch</th>
+                <th>Status</th>
+                <th>Action</th>
+               
+
+            </thead>
+            <tbody>
+
+             {% for data in studentData  %}
+             
+                    <tr>
+                        <td id="{{data.stdnt_id}}_stdnt_id">{{forloop.counter}}</td>
+                        <td id="{{data.stdnt_id}}_stdnt_Name">{{data.stdnt_Name}}</td>
+                        <td id="{{data.stdnt_id}}_stdnt_Roll">{{data.stdnt_Roll}} </td>
+                        <td id="{{data.stdnt_id}}_stdnt_Branch">{{data.stdnt_Branch}}</td>
+                        <td >
+                        {{data.stdnt_is_Active}}
+                        <td>
+                            <center>
+                            <a href="teach_edit_stdnt?id={{data.stdnt_id}}">
+                            <button type="button" class="btn btn-primary"> 
+
+                            <span class="fa fa-pencil"> </span> Edit
+                            
+                            </button>
+                            </a>
+                           
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="assignModalValue(this.value);" value="{{data.stdnt_id}}">
+<span class="fa fa-trash"> </span> Delete</button>
+
+                            </center> 
+
+                        </td>
+                    </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <br>
+    </div>
+
+
+           
+
+
+</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <b>Roll Number : </b> <span id="stdntRoll"></span>
+        <br>
+        <b>Student Name : </b> <span id="stdntName"></span>
+        <br>
+        <b>Branch Name : </b> <span id="stdntBranch"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<a href="teach_del_stdnt?id={{data.stdnt_id}}" id="stdntDelLinkID">
+<button type="button" class="btn btn-danger">Save changes</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script>
+openNav();
+ $(document).ready(function() {
+        $('#view_stdnts').DataTable();
+    });
+function assignModalValue(idVar) {
+var fullIDSelector = "#"+idVar;
+
+var StudentID=fullIDSelector+"_stdnt_id";
+var StudentRoll=fullIDSelector+"_stdnt_Roll";
+var StudentNM=fullIDSelector+"_stdnt_Name";
+var StudentBR=fullIDSelector+"_stdnt_Branch";
+
+var id= $(StudentID).text();
+$("#stdntRoll").text($(StudentRoll).text());
+$("#stdntName").text($(StudentNM).text());
+$("#stdntBranch").text($(StudentBR).text());
+
+var sendAttrLink = "teach_del_stdnt?id="+id;
+
+$("#stdntDelLinkID").attr('href',sendAttrLink);
+
+}
+</script>
+{% endblock %}
+</html>

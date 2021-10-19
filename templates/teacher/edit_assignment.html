@@ -1,0 +1,120 @@
+{% extends 'faculity_nav.html' %}
+
+{% block title %} Edit Assignment
+{% endblock title %}
+{% block body %}
+
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5 ml-auto">	
+			
+    <div class="card border-1">
+  
+              	
+                <h2 class="pl-2"><b><span class="fa fa-pencil"> </span> Edit Assignment</b></h2>
+            {% ifequal request.GET.suc 'updated' %}
+                            
+ <div class="alert alert-success card m-2">
+  <strong><span class="fa fa-check-square"> </span> Sucessfull!</strong> Assignment Updated Sucessfully   
+</div>                            
+                            {% endifequal %}
+           <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+
+                
+        </div>
+        <br>
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <div class="form-group row">
+                   
+				   <div class="col col-md-6">
+				   <label><b><span class="fa fa-folder-open"></span> Directory Name :</b></label>
+
+                    <input type="text" class="form-control" name="assgin_DirName" placeholder="Directory Name*"
+                        value="{{assignmentData.assignment_DIR}}" required disabled />
+						</div>
+						<div class="col col-md-6">  
+				   <label><b><span class="fa fa-poll-h"></span>  Marks :</b></label>
+
+                    <input type="text" class="form-control" name="assgin_Marks" placeholder="Marks For Assignment *"
+                         value="{{assignmentData.assignment_Marks}}" required />
+						</div>
+
+                </div>
+
+                <div class="form-group">
+				
+                    <label><b><span class="fa fa-calendar-week"></span> Last Date :</b></label>
+                    <input type="date" class="form-control" name="assign_LastDate" placeholder="assign_LastDate *"  value="{{assignmentData.assignment_Last_Date}}"required />
+                </div>
+               
+              
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+				  <label><b><span class="fa fa-file-signature"></span> Question(s):</b></label> <br>
+
+                   <textarea class="form-control" name="assign_QN" rows="5">{{assignmentData.assignment_QN}}</textarea>
+                  
+                </div>
+                   </div>
+        </div>
+          <div class="col col-md-6">
+				  <div class="maxl">
+                        <b><span class="fa fa-exclamation-triangle"></span> Status :</b>
+                        <br>
+                        <label class="radio inline">
+                            <input type="radio" name="assignment_status" value="True" 
+                            
+                            {% ifequal assignmentData.assignment_status True  %}
+                            
+                            checked
+                            
+                            {% endifequal %}
+                            
+                            >
+                            <span> Open </span>
+                        </label>
+                        <label class="radio inline">
+                            <input type="radio" name="assignment_status" value="False" 
+                            
+                            
+                            {% ifequal assignmentData.assignment_status False  %}
+                            
+                            checked
+                            
+                            {% endifequal %}
+                            
+                            >
+                            <span>Close </span>
+                        </label>
+                    </div>
+						</div>
+        <div class="form-group">
+<input type="hidden" name="id" value="{{assignmentData.assignment_id}}" />                  
+<input class="btn btn-success ml-3" type="submit" value="Update Assignment" id="submit_btn">
+    <br>
+    </div>
+	 
+
+                </div>
+
+
+
+    </form>
+    </div>
+    </div>
+
+
+</div>
+</div>
+</body>
+<script>
+openNav();
+
+</script>
+{% endblock %}
+</html>
