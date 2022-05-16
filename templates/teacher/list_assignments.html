@@ -81,19 +81,24 @@
 
                         
                         <td>
-                            <center>
                             <a href="teach_edit_assignment?id={{data.assignment_id}}">
                             <button type="button" class="btn btn-primary"> 
 
-                            <span class="fa fa-pencil"> </span> Edit
+                            <span class="fa fa-pencil"> </span>
                             
                             </button>
                             </a>
                            
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="assignModalValue(this.value);" value="{{data.assignment_id}}">
-<span class="fa fa-trash"> </span> Delete</button>
+<span class="fa fa-trash"> </span></button>
 
-                            </center> 
+<a href="teach_view_submitted_assignments?id={{data.assignment_id}}">
+  <button type="button" class="btn btn-primary"> 
+
+  <span class="fa fa-eye"> </span> 
+  
+  </button>
+  </a>
 
                         </td>
                     </tr>

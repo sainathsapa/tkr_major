@@ -45,6 +45,8 @@
                 <th>Student Roll No</th>
                 <th>Submitted Date</th>
                 <th>Submitted File</th>
+                <th>Matched File(s)</th>
+
                 <th>Assignment Status</th>
                 <th>Review</th>
                 <th>Actions</th>
@@ -56,30 +58,31 @@
              {% for data in AssignmentListData  %}
              
                     <tr>
-                     assignment_submittion_id = models.AutoField(primary_key=True)
-    assignment_submited_Roll= models.CharField(max_length=50)
-    assignment_submitted_File = models.FileField(upload_to='files/')
-    assignment_submittion_date = models.DateField(auto_now=False, auto_now_add=True)
-    assignment_submittion_status = models.CharField(max_length=2)
-    assignment_submittion_review = models.CharField(max_length=250)
+                    
+                        <td id="{{AssignmentListData.assignment_submittion_id}}_assignment_id">{{data.assignment_submittion_id}}</td>
+                        <td id="{{AssignmentListData.assignment_submited_Roll}}_assignment_submited_Roll">{{data.assignment_submited_Roll}}</td>
+                        <td id="{{AssignmentListData.assignment_submittion_date}}_assignment_submittion_date">{{data.assignment_submittion_date}}</td>
+                        <td id="{{AssignmentListData.assignment_submitted_File}}_assignment_submitted_File"><a href="{{data.assignment_submitted_File}}"
+                          >{{data.assignment_submitted_File}}</a></td>
+                        <td id="{{AssignmentListData.assignment_Matched_Files}}_assignment_Matched_File">
+                         
+                          {{Matched_Content}}
 
-                        <td id="{{AssignmentListData.assignment_submittion_id}}_assignment_id">{{AssignmentListData.assignment_submittion_id}}</td>
-                        <td id="{{AssignmentListData.assignment_submited_Roll}}_assignment_submited_Roll">{{AssignmentListData.assignment_submited_Roll}}</td>
-                        <td id="{{AssignmentListData.assignment_submittion_date}}_assignment_submittion_date">{{AssignmentListData.assignment_submittion_date}}</td>
-                        <td id="{{AssignmentListData.assignment_submitted_File}}_assignment_submitted_File"><a href="{{AssignmentListData.assignment_submitted_File}}"
-                        >{{AssignmentListData.assignment_submitted_File}}</a></td>
+                          
+                        </td>
+                              
 
 
                        
-                        <td id="{{AssignmentListData.assignment_submittion_status}}_assignment_submittion_status">{{AssignmentListData.assignment_submittion_status}}   </td>
-                        <td id="{{AssignmentListData.assignment_submittion_review}}_assignment_submittion_status">{{AssignmentListData.assignment_submittion_review}}   </td>
+                        <td id="{{AssignmentListData.assignment_submittion_status}}_assignment_submittion_status">{{data.assignment_submittion_status}}   </td>
+                        <td id="{{AssignmentListData.assignment_submittion_review}}_assignment_submittion_status">{{data.assignment_submittion_review}}   </td>
                         
                         <td>
                             <center>
-                            <a href="teach_view_assignment?id={{AssignmentListData.assignment_submittion_id}}">
+                            <a href="teach_view_assignment?id={{data.assignment_submittion_id}}">
                             <button type="button" class="btn btn-primary"> 
 
-                            <span class="fa fa-pencil"> </span> View
+                            <span class="fa fa-eye"> </span>
                             
                             </button>
                             </a>

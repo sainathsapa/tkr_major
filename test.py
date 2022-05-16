@@ -2,8 +2,8 @@ import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-studnt_Submitted_Files = [doc for doc in os.listdir("files") if doc.endswith('.txt')]
-studnt_Submitted_Files_DT =[open("files/"+File).read() for File in  studnt_Submitted_Files]
+studnt_Submitted_Files = [doc for doc in os.listdir("assignments/newAssign") if doc.endswith('.html')]
+studnt_Submitted_Files_DT =[open("assignments/newAssign/"+File).read() for File in  studnt_Submitted_Files]
 
 
 # Getting Data from FIles
@@ -35,4 +35,4 @@ def check_plagiarism():
     return plagiarism_results
     
 for data in check_plagiarism():
-    print(data[2])
+    print(data)

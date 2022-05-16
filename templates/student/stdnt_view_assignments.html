@@ -26,6 +26,14 @@
                             {% endifequal %}                            
 
 
+{% ifequal request.GET.del 'suc' %}
+                            
+ <div class="alert alert-success card m-2">
+  <strong><span class="fa fa-check-circle"> </span> Sucessfull!</strong> Assignment Deleted Sucessfully.!
+</div>                            
+                            {% endifequal %}                            
+
+
                            
 
              <div class="conainer bg-white table-responsive-sm ml-2">
@@ -54,7 +62,7 @@
                         <td id="{{data.assignment_submittion_id}}_assignment_Model_ID">{{data.assignment_Model_ID}} </td>
                         <td id="{{data.assignment_submittion_id}}_assignment_submittion_date">{{data.assignment_submittion_date}}</td>
                         <td id="{{data.assignment_submittion_id}}_assignment_submited_Marks">{{data.assignment_submited_Marks}}</td>
-                        <td id="{{data.assignment_submittion_id}}_assignment_submitted_File"><a href="../assignments/{{data.assignment_submitted_File}}" download>{{data.assignment_submitted_File}}</a>
+                        <td id="{{data.assignment_submittion_id}}_assignment_submitted_File"><a href="../{{data.assignment_submitted_File}}" download>{{data.assignment_submitted_File}}</a>
                         
                         
                         </td>
@@ -71,7 +79,7 @@
                         <td align="center">
                            <div class="col-md-12 col-sm-12 m-0 p-0 row">
 <div class="col-md-6">
- <a href="stdnt_upload_assignment?id={{data.assignment_submittion_id}}">
+ <a href="stdnt_re_upload_assignment?id={{data.assignment_submittion_id}}">
                             <button type="button" class="btn btn-primary"> 
 
                             <span class="fa fa-upload"> </span> Re Upload

@@ -1,0 +1,136 @@
+{% extends 'student_nav.html' %}
+
+{% block title %} Assignment Student 
+{% endblock title %}
+{% block body %}
+
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5 ml-auto">	
+			
+    <div class="card border-1">
+  
+              	<br>
+                <h2 class="pl-2"><b><span class="fa fa-upload"> </span> Re Upload Assignment</b></h2>
+            {% if msg %}
+              <div class="alert alert-success m-2">
+  <strong><span class="fa fa-check-square"> </span> Success!</strong> Upload Sucessfull
+</div>
+            {% else %}
+            {% endif %}
+           <div class="card-body">
+            <form action="stdnt_upload_assignment" method="POST" enctype="multipart/form-data" id="form">
+
+                {% csrf_token %}
+
+               
+        
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <div class="form-group row">
+                   
+				   <div class="col col-md-6">
+				   <label><b><span class="fa fa-sort-numeric-down-alt"></span> Assignment ID :</b></label>
+
+                    <input type="text" class="form-control" name="assignment_id"  value="{{AssignmentData.assignment_Model_ID}}"
+                          readonly required />
+						</div>
+						<div class="col col-md-6">
+				   <label><b><span class="fa fa-sort-amount-down"></span>  Roll Number :</b></label>
+
+                    <input type="text" class="form-control" name="assignmt_stdnt_Roll" value="{{StudentData.stdnt_Roll}}" readonly required />
+						</div>
+
+                </div>
+
+                <div class="form-group">
+				
+                    <label><b><span class="fa fa-file-alt"></span> FileType :</b></label>
+                    <input type="text" class="form-control" value="{{AssignmentModel.assignment_FileType}}" disabled />
+                </div>
+                <div class="form-group">
+                <label><b>Previous File </b></label>
+                <br>
+                <a class="form-control link "href="{{AssignmentData.assignment_submitted_File}}" download><b>File</b></a>
+                <br>    
+                    <label><b><span class="fa fa-upload"></span> Choose File :</b></label>
+                    <input type="file" class="form-control" name="uploadedFile" accept="{{AssignmentModel.assignment_FileType}}" id="uploadFile" onchange="checkFileEXT(this.value);"required />
+                     <div class="alert alert-danger my-1" id="msgFileType">
+  <strong><span class="fa fa-times-circle"> </span> Choose Appropriate FileType!</strong>><span id="typeFileEXT"></span>
+</div>
+                </div>
+				
+                <div class="form-group">
+                    
+
+					
+                </div>
+				
+            </div>
+             <div class="col-md-6">
+                <div class="form-group">
+				  <label><b><span class="fa fa-file-signature"></span> Question(s):</b></label> <br>
+
+                   <textarea class="form-control" name="assign_QN" rows="4" readonly>{{AssignmentModel.assignment_QN}}</textarea>
+                  
+                </div>
+                <div class="form-group">
+                    <label><b><span class="fa fa-envelope-open-text"></span> Date & Time :</b></label>
+
+                    <input type="email" class="form-control" name="upload_date_and_Time" value="" readonly required id="upload_date_and_Time"/>
+                </div>
+                   </div>
+        </div>
+            
+	 <div class="form-group">
+          <input type="hidden" name="assignment_status" value="notViewed" />
+          <input type="hidden" name="assignment_review" value="noReview" />         
+<input class="btn btn-primary ml-3" type="submit" value="Upload" id="upload_btn">
+    <br>
+                </div>
+
+
+
+    </form>
+    </div>
+    </div>
+
+
+</div>
+</div>
+</body>
+<script>
+openNav();
+$("#msgFileType").css('display','none');
+var btn_submit = ('#upload_btn');
+var dt = new Date();
+var time = dt.getDate()+"-"+dt.getMonth()+"-"+dt.getYear()+" -- "+dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+document.write(time);
+var upload_date_and_Time = '#'+'upload_date_and_Time';
+$(upload_date_and_Time).val(dt);
+function checkFileEXT(filename)
+{
+    var ext = '.'+ filename.split('.').pop();
+    var definedFileType = '{{AssignmentData.assignment_FileType}}'
+    if (ext !=definedFileType)
+    {
+        $("#typeFileEXT").text(definedFileType);
+         $("#msgFileType").css('display','block');
+        $(btn_submit).attr('disabled','disabled');
+
+ 
+    }
+    else
+    {
+        $("#msgFileType").css('display','none');
+        $(btn_submit).attr('disabled',false);
+        
+    }
+
+}
+
+
+</script>
+{% endblock %}
+</html>
