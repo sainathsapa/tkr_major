@@ -12,10 +12,32 @@ class Students_Model(models.Model):
     stdnt_Mobile = models.CharField(max_length=10)
     stdnt_UserName = models.CharField(max_length=50)
     stdnt_PWD = models.CharField(max_length=250)
+    stdnt_Total_Fees = models.CharField(max_length=50)
     stdnt_is_Active = models.BooleanField(default=False)
 
     class Meta:
         db_table = "students_tbl"
+
+
+class Fees_Model(models.Model):
+    fees_id = models.BigAutoField(primary_key=True)
+    fees_name = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = "fees_tbl"
+
+
+class Payments_Model(models.Model):
+    payment_id = models.AutoField(primary_key=True)
+    fees_type_id = models.CharField(max_length=50)
+    fees_submited_Roll = models.CharField(max_length=50)
+    fee_payment_mode= models.CharField(max_length=250)
+    razorpay_payment_id = models.CharField(max_length=250)
+    payment_state = models.BooleanField(default=True)
+    payment_submittion_date = models.CharField(max_length=60)
+
+    class Meta:
+        db_table = "payments_tbl"
 
 
 class Teachers_Model(models.Model):
@@ -88,3 +110,16 @@ class Plagarized(models.Model):
 
     class Meta:
         db_table = "plagarized"
+
+
+class accounts_usr(models.Model):
+    acc_id = models.BigAutoField(primary_key=True)
+    acc_Name = models.CharField(max_length=50)
+    acc_Gender = models.BooleanField(default=False)
+    acc_Email = models.EmailField(max_length=254)
+    acc_Mobile = models.CharField(max_length=10)
+    acc_UserName = models.CharField(max_length=50)
+    acc_PWD = models.CharField(max_length=250)
+
+    class Meta:
+        db_table = "accounts_usr"

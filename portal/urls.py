@@ -1,7 +1,7 @@
 from django.conf.urls import include
 from django.urls import path
 from django.views.generic import TemplateView
-from portal import views
+from portal import accounts, views
 from portal import students
 from portal import teach
 
@@ -38,11 +38,19 @@ urlpatterns = [
     # Stdent Modules
 
     path('stdnt_dash', students.stdnt_dash, name="Student Dashboard"),
+    path('stdnt_profile', students.stdnt_profile, name="stdnt_profile"),
     path('stdnt_nw_assignment', students.stdnt_nw_assignment, name="Student Dashboard"),    
     path('stdnt_upload_assignment', students.stdnt_upload_assignment, name="Student Upload Assignment"),
     path('stdnt_view_assignments', students.stdnt_view_assignments, name="Student View Assignt"),
     path('stdnt_del_assignment', students.stdnt_del_assignment, name="Student View Assignt"),
     path('stdnt_re_upload_assignment', students.stdnt_re_upload_assignment, name="Student View Assignt"),
+    path('stdnt_nw_payment', students.stdnt_nw_payment, name="Student New Payment"),
+
+
+
+    # Accounts Module
+    path('acc_dashboard', accounts.acc_dashboard, name="Account Dashboard"),
+    path('acc_view_stdnt', accounts.acc_view_stdnt, name="Account View Student")
 
 
 
