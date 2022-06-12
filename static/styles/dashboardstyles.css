@@ -78,7 +78,7 @@
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 0px 0px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
@@ -107,11 +107,11 @@ a:hover {
 }
 
 .card-body {
-  padding: 5px !important
+  padding: 1px !important
 }
 
 .card-header {
-  padding: 5px 0px !important
+  padding: 1px 0px !important
 }
 
 .sidenav a {
