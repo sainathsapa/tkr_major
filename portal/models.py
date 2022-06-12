@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Students_Model(models.Model):
     stdnt_id = models.BigAutoField(primary_key=True)
     stdnt_Name = models.CharField(max_length=50)
@@ -14,7 +15,8 @@ class Students_Model(models.Model):
     stdnt_is_Active = models.BooleanField(default=False)
 
     class Meta:
-        db_table="students_tbl"
+        db_table = "students_tbl"
+
 
 class Teachers_Model(models.Model):
     tech_id = models.BigAutoField(primary_key=True)
@@ -26,7 +28,8 @@ class Teachers_Model(models.Model):
     teach_PWD = models.CharField(max_length=250)
 
     class Meta:
-        db_table="teachers_tbl"
+        db_table = "teachers_tbl"
+
 
 class Assignments(models.Model):
     assignment_id = models.AutoField(primary_key=True)
@@ -39,7 +42,8 @@ class Assignments(models.Model):
     assignment_status = models.BooleanField(default=False)
 
     class Meta:
-        db_table="assignemnts"
+        db_table = "assignemnts"
+
 
 class Admin_Model(models.Model):
     admin_id = models.BigAutoField(primary_key=True)
@@ -47,21 +51,21 @@ class Admin_Model(models.Model):
     admin_pwd = models.CharField(max_length=250)
 
     class Meta:
-        db_table="admin_tbl"
+        db_table = "admin_tbl"
+
 
 class Assignemnt_Submissions(models.Model):
     assignment_submittion_id = models.AutoField(primary_key=True)
-    assignment_Model_ID= models.CharField(max_length=50)
-    assignment_submited_Roll= models.CharField(max_length=50)
-    assignment_submited_Marks= models.CharField(max_length=50)
+    assignment_Model_ID = models.CharField(max_length=50)
+    assignment_submited_Roll = models.CharField(max_length=50)
+    assignment_submited_Marks = models.CharField(max_length=50)
     assignment_submitted_File = models.CharField(max_length=150)
     assignment_submittion_date = models.CharField(max_length=60)
     assignment_submittion_status = models.CharField(max_length=2)
     assignment_submittion_review = models.CharField(max_length=250)
 
-
     class Meta:
-        db_table="assignment_submittions"
+        db_table = "assignment_submittions"
 
 
 class Notices(models.Model):
@@ -69,9 +73,9 @@ class Notices(models.Model):
     notice_Content = models.TextField()
     notice_issed_b = models.CharField(max_length=50)
     notice_issue_date = models.DateField(auto_now_add=True)
-    
+
     class Meta:
-        db_table="notices"
+        db_table = "notices"
 
 
 class Plagarized(models.Model):
@@ -83,4 +87,4 @@ class Plagarized(models.Model):
     plagarized_status = models.CharField(max_length=3)
 
     class Meta:
-        db_table="plagarized"
+        db_table = "plagarized"
