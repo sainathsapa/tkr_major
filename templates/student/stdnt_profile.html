@@ -46,7 +46,7 @@
                                                    name="stdnt_Roll"
                                                    placeholder="Enter userName *"
                                                    value="{{ studentData.stdnt_Roll }}"
-                                                   required/>
+                                                   required disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -101,7 +101,7 @@
                                                     <input type="radio"
                                                            name="stdnt_Gender"
                                                            value="False"
-                                                           {% ifequal studentData.stdnt_Gender False %} checked {% endifequal %}>
+                                                           {% if studentData.stdnt_Gender == False %} checked{% endif %}>
                                                     <span>Female</span>
                                                 </label>
                                             </div>
@@ -113,14 +113,16 @@
                                                 <input type="radio"
                                                        name="stdnt_status"
                                                        value="True"
-                                                       {% ifequal studentData.stdnt_is_Active True %} checked {% endifequal %} disabled>
+                                                       {% if studentData.stdnt_is_Active == True %} checked{% endif %}
+                                                       disabled>
                                                 Active
                                             </label>
                                             <label class="radio inline">
                                                 <input type="radio"
                                                        name="stdnt_status"
                                                        value="False"
-                                                       {% ifequal studentData.stdnt_is_Active False %} checked {% endifequal %} disabled>
+                                                       {% if studentData.stdnt_is_Active == False %} checked{% endif %}
+                                                       disabled>
                                                 <span>De Active</span>
                                             </label>
                                         </div>
@@ -153,18 +155,21 @@
                                                 Select
                                             </option>
                                             <option value="Computer Science & Engineering"
-                                                    {% ifequal studentData.stdnt_Branch "Computer Science & Engineering" %} selected {% endifequal %}>
+                                                    {% if studentData.stdnt_Branch == "Computer Science & Engineering" %} 
+                                                    selected 
+                                                    {% endif %}>
                                                 Computer Science & Engineering
                                             </option>
                                             <option value="Electronic & Communication Engineering"
-                                                    {% ifequal studentData.stdnt_Branch "Electronic & Communication Engineering" %} selected {% endifequal %}>
+                                                    {% if studentData.stdnt_Branch == "Electronic & Communication Engineering" %} selected {% endif %}>
                                                 Electronic & Comm. Engineering
                                             </option>
                                             <option value="Information Technology"
-                                                    {% ifequal studentData.stdnt_Branch "Information Technology" %} selected {% endifequal %}>
+                                                    {% if studentData.stdnt_Branch == "Information Technology" %} selected {% endif %}>
                                                 Information Technology
                                             </option>
-                                            <option value="Civil Engineering" {% ifequal studentData.stdnt_Branch "Civil Engineering" %} selected {% endifequal %}>
+                                            <option value="Civil Engineering"
+                                                    {% if studentData.stdnt_Branch == "Civil Engineering" %} selected {% endif %}>
                                                 Civil Engineering
                                             </option>
                                         </select>
