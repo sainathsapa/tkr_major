@@ -1,0 +1,72 @@
+<html>
+    <button id="rzp-button1" class="btn btn-outline-dark btn-lg">
+        <i class="fas fa-money-bill"></i> Own Checkout
+    </button>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    {% csrf_token %}
+
+    <script>
+        function post_to_url(path, params, method) {
+        method = method || "post"; // Set method to post by default, if not specified.
+    
+        var form = $(document.createElement( "form" )).attr( {"method": method, "action": path} );
+    
+        $.each( params, function(key,value){
+            $.each( value instanceof Array? value : [value], function(i,val){
+
+                $(document.createElement("input"))
+                    .attr({ "type": "hidden", "name": key, "value": val })
+                    .appendTo( form );
+            }); 
+        } ); 
+    
+        form.appendTo( document.body ).submit(); 
+    }
+    </script>
+    <script>
+        var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+        console.log(token);
+    var options = {
+        "key": "rzp_test_xnUgwEozG0pal1", // Enter the Key ID generated from the Dashboard
+        "amount": "15000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Kanti & Sons Outsourcing",
+        "description": "Application Payment",
+        "image": "https://media-exp1.licdn.com/dms/image/C560BAQHsf5WHFju0TA/company-logo_200_200/0/1593229358214?e=2147483647&v=beta&t=-oYt4iGcLraYAaykuEA2_U0DHZTg_-WVi6CjWxXrwi8",
+        // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+
+        "handler":  function (response){
+            
+            //post_to_url('stdnt_nw_payment',{cust_id:'9676753138',app_num:'MyID',razorpay_id:response.razorpay_payment_id,amount_paid:'50000', succeed:'Yes', csrfmiddlewaretoken:token},'POST');
+            post_to_url('stdnt_nw_payment',{csrfmiddlewaretoken:token},'POST');
+            
+        },    
+        
+        "prefill": {
+            "name": "Sainath Sapa",
+            "email": "info.djsai@gmail.com",
+            "contact": "9676753138"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+    </script>
+</html>

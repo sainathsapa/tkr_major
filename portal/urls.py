@@ -6,16 +6,15 @@ from portal import students
 from portal import teach
 
 
+urlpatterns = [
 
-urlpatterns = [ 
+    path('', views.process, name="LogIN"),
 
-    path('',views.process, name="LogIN"),  
-
-    path('login',views.login, name="LogIN"),  
-    path('logout',views.logout, name="LogOUT"),
+    path('login', views.login, name="LogIN"),
+    path('logout', views.logout, name="LogOUT"),
     # path('download/(?P<path>.*',views.download, name="LogOUT"),
 
-    
+
     # path('dirOpen',views.dirOpen, name="LogOUT"),
 
     path('teach_reg', views.reg_tech, name="Register Teacher"),
@@ -25,35 +24,57 @@ urlpatterns = [
     path('teach_add_stdnt', teach.teach_add_sdnt, name="Teacher Add Student"),
     path('teach_view_stdnt', teach.teach_view_stdnt, name="Teacher View Student"),
     path('teach_edit_stdnt', teach.teach_edit_stdnt, name="Teacher Edit Student"),
-    path('teach_del_stdnt', teach.teach_del_stdnt, name="Teacher Student Delete"),
-    path('teach_nw_assignment', teach.teach_nw_assign, name="Teacher New Assgignment"),
-    path('teach_lst_assignment', teach.teach_lst_assign, name="Teacher List Assignment"),
-    path('teach_edit_assignment', teach.teach_edit_assign, name="Teacher Edit Assignment"),
-    path('teach_del_assignment', teach.teach_del_assign, name="Teacher Delete Assignment"),
+    path('teach_del_stdnt', teach.teach_del_stdnt,
+         name="Teacher Student Delete"),
+    path('teach_nw_assignment', teach.teach_nw_assign,
+         name="Teacher New Assgignment"),
+    path('teach_lst_assignment', teach.teach_lst_assign,
+         name="Teacher List Assignment"),
+    path('teach_edit_assignment', teach.teach_edit_assign,
+         name="Teacher Edit Assignment"),
+    path('teach_del_assignment', teach.teach_del_assign,
+         name="Teacher Delete Assignment"),
     # path('teach_view_assignments', teach.teach_view_assign, name="Teacher View Assignments"),
-    path('teach_view_assignment', teach.teach_view_assignment, name="Teacher View Assignments"),
-    path('teach_view_submitted_assignments', teach.teach_view_submitted_assignments, name="Teacher View Assignments"),
+    path('teach_view_assignment', teach.teach_view_assignment,
+         name="Teacher View Assignments"),
+    path('teach_view_submitted_assignments',
+         teach.teach_view_submitted_assignments, name="Teacher View Assignments"),
 
 
     # Stdent Modules
 
     path('stdnt_dash', students.stdnt_dash, name="Student Dashboard"),
     path('stdnt_profile', students.stdnt_profile, name="stdnt_profile"),
-    path('stdnt_nw_assignment', students.stdnt_nw_assignment, name="Student Dashboard"),    
-    path('stdnt_upload_assignment', students.stdnt_upload_assignment, name="Student Upload Assignment"),
-    path('stdnt_view_assignments', students.stdnt_view_assignments, name="Student View Assignt"),
-    path('stdnt_del_assignment', students.stdnt_del_assignment, name="Student View Assignt"),
-    path('stdnt_re_upload_assignment', students.stdnt_re_upload_assignment, name="Student View Assignt"),
-    path('stdnt_nw_payment', students.stdnt_nw_payment, name="Student New Payment"),
+    path('stdnt_nw_assignment', students.stdnt_nw_assignment,
+         name="Student Dashboard"),
+    path('stdnt_upload_assignment', students.stdnt_upload_assignment,
+         name="Student Upload Assignment"),
+    path('stdnt_view_assignments', students.stdnt_view_assignments,
+         name="Student View Assignt"),
+    path('stdnt_del_assignment', students.stdnt_del_assignment,
+         name="Student View Assignt"),
+    path('stdnt_re_upload_assignment',
+         students.stdnt_re_upload_assignment, name="Student View Assignt"),
+    path('stdnt_nw_payment', students.stdnt_nw_payment,
+         name="Student New Payment"),
+    path('stdnt_indvid_mk_payment', students.stdnt_indvid_mk_payment,
+         name="Student New Payment"),
 
 
 
     # Accounts Module
     path('acc_dashboard', accounts.acc_dashboard, name="Account Dashboard"),
-    path('acc_view_stdnt', accounts.acc_view_stdnt, name="Account View Student")
+    path('acc_view_stdnt', accounts.acc_view_stdnt, name="Account View Student"),
+    path('acc_add_payment_type', accounts.acc_add_payment_type,
+         name="Account Add Payment Method"),
+    path('acc_view_payment_types', accounts.acc_view_payment_types,
+         name="Account View Payment Method"),
+
+    path('acc_del_payment_method', accounts.acc_del_payment_method,
+         name="Account Delete Payment Method")
 
 
 
 
-    
+
 ]

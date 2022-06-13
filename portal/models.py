@@ -22,6 +22,8 @@ class Students_Model(models.Model):
 class Fees_Model(models.Model):
     fees_id = models.BigAutoField(primary_key=True)
     fees_name = models.CharField(max_length=50)
+    fees_type=models.CharField(max_length=250)
+    fees_amount=models.IntegerField(max_length=50)
 
     class Meta:
         db_table = "fees_tbl"
