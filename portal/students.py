@@ -327,13 +327,13 @@ def stdnt_indvid_mk_payment(request):
                     if request.GET.get('suc') == 'updated':
                         context = {
                             'userName': getDetails.stdnt_UserName,
-                            'studentData': PaymentData[0],
+                            'PaymentData': PaymentData[0],
                             'suc': request.GET.get('suc')
-                        }
+                        }   
                     else:
                         context = {
                             'userName': getDetails.stdnt_UserName,
-                            'AssignmentData': PaymentData[0],
+                            'PaymentData': PaymentData[0],
                             'StudentData': getDetails
                         }
 
