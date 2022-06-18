@@ -3,6 +3,26 @@
     Make Payment Student
 {% endblock title %}
 {% block body %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    {% csrf_token %}
+    <script>
+        function post_to_url(path, params, method) {
+        method = method || "post"; // Set method to post by default, if not specified.
+    
+        var form = $(document.createElement( "form" )).attr( {"method": method, "action": path} );
+    
+        $.each( params, function(key,value){
+            $.each( value instanceof Array? value : [value], function(i,val){
+
+                $(document.createElement("input"))
+                    .attr({ "type": "hidden", "name": key, "value": val })
+                    .appendTo( form );
+            }); 
+        } ); 
+    
+        form.appendTo( document.body ).submit(); 
+    }
+    </script>
     <body>
         <div id="main">
             <div class="container py-5 my-5 ml-auto">
@@ -32,77 +52,51 @@
                                         </label>
                                         <input type="text"
                                                class="form-control"
-                                               name="assignment_id"
+                                               name="fees_id"
                                                value="{{ PaymentData.fees_id }}"
                                                readonly
                                                required/>
                                     </div>
                                     <div class="col col-md-6">
                                         <label>
-                                            <b><span class="fa fa-sort-amount-down"></span>  Roll Number :</b>
+                                            <b><span class="fa fa-sort-amount-down"></span>  Fees Amount :</b>
                                         </label>
                                         <input type="text"
                                                class="form-control"
-                                               name="assignmt_stdnt_Roll"
-                                               value="{{ StudentData.stdnt_Roll }}"
+                                               name="fees_amount"
+                                               value="{{ PaymentData.fees_amount }}"
                                                readonly
                                                required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>
-                                        <b><span class="fa fa-file-alt"></span> FileType :</b>
+                                        <b><span class="fa fa-file-alt"></span> Fees Type :</b>
                                     </label>
                                     <input type="text"
                                            class="form-control"
-                                           value="{{ AssignmentData.assignment_FileType }}"
+                                           value="{{ PaymentData.fees_type }}"
                                            disabled/>
-                                </div>
-                                <div class="form-group">
-                                    <label>
-                                        <b><span class="fa fa-upload"></span> Choose File :</b>
-                                    </label>
-                                    <input type="file"
-                                           class="form-control"
-                                           name="uploadedFile"
-                                           accept="{{ AssignmentData.assignment_FileType }}"
-                                           id="uploadFile"
-                                           onchange="checkFileEXT(this.value);"
-                                           required/>
-                                    <div class="alert alert-danger my-1" id="msgFileType">
-                                        <strong><span class="fa fa-times-circle"></span> Choose Appropriate FileType!</strong>><span id="typeFileEXT"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>
-                                        <b><span class="fa fa-file-signature"></span> Question(s):</b>
-                                    </label>
-                                    <br>
-                                    <textarea class="form-control" name="assign_QN" rows="4" readonly>{{AssignmentData.assignment_QN}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>
                                         <b><span class="fa fa-envelope-open-text"></span> Date & Time :</b>
                                     </label>
-                                    <input type="email"
+                                    <input type="text"
                                            class="form-control"
                                            name="upload_date_and_Time"
-                                           value=""
                                            readonly
                                            required
                                            id="upload_date_and_Time"/>
                                 </div>
+                                <div class="form-group"></div>
                             </div>
+                            <div class="col-md-6"></div>
                         </div>
                         <div class="form-group">
-                            <input type="hidden" name="assignment_status" value="notViewed" />
-                            <input type="hidden" name="assignment_review" value="noReview" />
                             <input class="btn btn-primary ml-3"
                                    type="submit"
-                                   value="Upload"
+                                   value="Make Payment"
                                    id="upload_btn">
                             <br>
                         </div>
@@ -120,26 +114,78 @@ var time = dt.getDate()+"-"+dt.getMonth()+"-"+dt.getYear()+" -- "+dt.getHours() 
 document.write(time);
 var upload_date_and_Time = '#'+'upload_date_and_Time';
 $(upload_date_and_Time).val(dt);
-function checkFileEXT(filename)
-{
-    var ext = '.'+ filename.split('.').pop();
-    var definedFileType = '{{AssignmentData.assignment_FileType}}'
-    if (ext !=definedFileType)
-    {
-        $("#typeFileEXT").text(definedFileType);
-         $("#msgFileType").css('display','block');
-        $(btn_submit).attr('disabled','disabled');
 
- 
-    }
-    else
-    {
-        $("#msgFileType").css('display','none');
-        $(btn_submit).attr('disabled',false);
+var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+        console.log(token);
+        var amount={{ PaymentData.fees_amount }}*100;
+        var fees_type="{{ PaymentData.fees_type }}";
+        var stdnt_roll="{{StudentData.stdnt_Roll}}";
         
+    var options = {
+        "key": "rzp_test_xnUgwEozG0pal1", // Enter the Key ID generated from the Dashboard
+        //"key":"rzp_live_BOLqXU6xf1PX8n",
+        "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "TKR Edu Society",
+        "description": "{{ PaymentData.fees_type }}",
+        "image": "https://media-exp1.licdn.com/dms/image/C560BAQHsf5WHFju0TA/company-logo_200_200/0/1593229358214?e=2147483647&v=beta&t=-oYt4iGcLraYAaykuEA2_U0DHZTg_-WVi6CjWxXrwi8",
+        // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+
+        "handler":  function (response){
+            
+            //post_to_url('stdnt_nw_payment',{cust_id:'9676753138',app_num:'MyID',razorpay_id:response.razorpay_payment_id,amount_paid:'50000', succeed:'Yes', csrfmiddlewaretoken:token},'POST');
+            post_to_url('stdnt_indvid_mk_payment',
+            {
+                frm_fees_type:fees_type,
+                frm_fees_submited_Roll:stdnt_roll,
+                razorpay_payment_id:response.razorpay_payment_id,
+                frm_payment_state:"True",
+                reason:"Success",
+                payment_submittion_date:dt,
+                frm_fees_amount:amount/100,
+                csrfmiddlewaretoken:token
+            },
+                'POST');
+            
+            
+        },    
+        
+        "prefill": {
+            "name": "{{StudentData.stdnt_Name}}",
+            "email": "{{StudentData.stdnt_Email}}",
+            "contact": "{{StudentData.stdnt_Mobile}}"
+        },
+        "notes": {
+            "address": "Survey No -8/A Medbowli, Meerpet, Telangana 500097"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+        
+        post_to_url('stdnt_indvid_mk_payment',
+        {
+            frm_fees_type:fees_type,
+            frm_fees_submited_Roll:stdnt_roll,
+            razorpay_payment_id:response.error.metadata.payment_id,
+            frm_payment_state:"False",
+            reason:response.error.reason.concat(" - ",response.error.description),
+            payment_submittion_date:dt,
+            frm_fees_amount:amount/100,
+            csrfmiddlewaretoken:token
+        }
+        ,
+        'POST'); 
+           
+    });
+    document.getElementById('upload_btn').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
     }
 
-}
+
 
 
     </script>

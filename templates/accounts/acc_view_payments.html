@@ -1,0 +1,114 @@
+{% extends 'accounts_nav.html' %}
+{% block title %}
+    View Payments
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-clipboard-list"></span> View Payments</b>
+                    </h2>
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                               id="list_assignments">
+                            <thead class="table-dark">
+                                <th>S.I</th>
+                                <th>Student Roll No</th>
+                                <th>Payment Type</th>
+                                <th>Payment Date</th>
+                                <th>Payment State</th>
+                                <th>Payment Amount</th>
+                            </thead>
+                            <tbody>
+                                {% for data in PaymentsData  %}
+                                    {% if data.payment_state ==  True %}
+                                        <tr class="bg-success text-white">
+                                        {% else %}
+                                            <tr class="bg-danger text-white">
+                                            {% endif %}
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ data.fees_submited_Roll }}</td>
+                                            <td>{{ data.fees_type }}</td>
+                                            <td>{{ data.payment_submittion_date }}</td>
+                                            <td id="{{ data.payment_id }}_payment_state">
+                                                {% if data.payment_state ==  True %}
+                                                    Success
+                                                {% else %}
+                                                    Failed
+                                                {% endif %}
+                                            </td>
+                                            <td id="{{ data.payment_id }}_fees_amount">INR {{ data.amount }} /-</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                {% comment %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <b>Assignment ID : </b> <span id="assignmentID"></span>
+        <br>
+        <b>Directory: </b> <span id="dir_assign"></span>
+        <br>
+        <b>Last Date : </b> <span id="last_date_assign"></span>
+        <br>
+        <b>Status : </b> <span id="status_assign"></span>
+
+      </div>
+      <div class="modal-footer">
+      
+<a href="teach_del_stdnt?id={{data.stdnt_id}}" id="assignmentDeleteLINK">
+<button type="button" class="btn btn-danger"><span class="fa fa-minus-circle"></span>  Confirm</button></a>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-window-close"></span> Close</button>
+      </div>
+    </div>
+  </div>
+                </div> {% endcomment %}
+            </body>
+            <script>
+openNav();
+ $(document).ready(function() {
+        $('#list_assignments').DataTable();
+    });
+    /*
+function assignModalValue(idVar) {
+var fullIDSelector = "#"+idVar;
+
+var AssignmentID=fullIDSelector+"_assignment_id";
+var AssinmentDIR=fullIDSelector+"_assignment_DIR";
+var AssignemtnStatus=fullIDSelector+"_assignment_status";
+var AssignmentLastDate=fullIDSelector+"_assignment_Last_Date";
+
+var id= $(AssignmentID).text();
+$("#assignmentID").text($(AssignmentID).text());
+$("#dir_assign").text($(AssinmentDIR).text());
+$("#last_date_assign").text($(AssignmentLastDate).text());
+$("#status_assign").text($(AssignemtnStatus).text());
+
+
+var sendAttrLink = "teach_del_assignment?id="+id;
+
+$("#assignmentDeleteLINK").attr('href',sendAttrLink);
+
+}*/
+
+            </script>
+        {% endblock %}
+    </html>

@@ -86,10 +86,10 @@
                         <a href="acc_view_payments">
                             <span class="fa fa-eye"></span> View Payments</a>
                     </div>
-                    <div class="card-body">
+                    {% comment %} <div class="card-body">
                         <a href="acc_make_new_payment">
                             <span class="fa fa-plus-square"></span> Make New Payment</a>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="card-body">
                         <a href="acc_add_payment_type">
                             <span class="fa fa-plus-square-o"></span> New Fee Type</a>
@@ -113,12 +113,12 @@
                 </div>
                 <div id="collapseNotice" class="collapse" data-parent="#accordion">
                     <div class="card-body">
-                        <a href="teacher_check_plagirism">
+                        <a href="acc_add_notice">
                             <span class="fa fa-flag-checkered"></span> New Notice</a>
                     </div>
 
                     <div class="card-body">
-                        <a href="repot">
+                        <a href="acc_view_notices">
                             <span class="fa fa-list"></span> View Notices</a>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
 
 
     <div class="p-0 m-0 dashboard-top-menu fixed-top">
-        <div class="container ">
+        <div class="container">
             <center>
                 <img src="/static/images/banner.png" class="banner" />
             </center>

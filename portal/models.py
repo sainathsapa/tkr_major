@@ -1,3 +1,5 @@
+from statistics import mode
+from this import d
 from django.db import models
 
 
@@ -22,8 +24,8 @@ class Students_Model(models.Model):
 class Fees_Model(models.Model):
     fees_id = models.BigAutoField(primary_key=True)
     fees_name = models.CharField(max_length=50)
-    fees_type=models.CharField(max_length=250)
-    fees_amount=models.IntegerField(max_length=50)
+    fees_type = models.CharField(max_length=250)
+    fees_amount = models.IntegerField()
 
     class Meta:
         db_table = "fees_tbl"
@@ -31,12 +33,13 @@ class Fees_Model(models.Model):
 
 class Payments_Model(models.Model):
     payment_id = models.AutoField(primary_key=True)
-    fees_type_id = models.CharField(max_length=50)
+    fees_type = models.CharField(max_length=50)
     fees_submited_Roll = models.CharField(max_length=50)
-    fee_payment_mode= models.CharField(max_length=250)
-    razorpay_payment_id = models.CharField(max_length=250)
+    razorpay_payment_id = models.CharField(max_length=250, null=True)
     payment_state = models.BooleanField(default=True)
-    payment_submittion_date = models.CharField(max_length=60)
+    reason = models.CharField(max_length=255)
+    amount = models.CharField(max_length=255)
+    payment_submittion_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "payments_tbl"
@@ -84,22 +87,12 @@ class Assignemnt_Submissions(models.Model):
     assignment_submited_Roll = models.CharField(max_length=50)
     assignment_submited_Marks = models.CharField(max_length=50)
     assignment_submitted_File = models.CharField(max_length=150)
-    assignment_submittion_date = models.CharField(max_length=60)
+    assignment_submittion_date = models.DateTimeField(auto_now_add=True)
     assignment_submittion_status = models.CharField(max_length=2)
     assignment_submittion_review = models.CharField(max_length=250)
 
     class Meta:
         db_table = "assignment_submittions"
-
-
-class Notices(models.Model):
-    notice_id = models.AutoField(primary_key=True)
-    notice_Content = models.TextField()
-    notice_issed_b = models.CharField(max_length=50)
-    notice_issue_date = models.DateField(auto_now_add=True)
-
-    class Meta:
-        db_table = "notices"
 
 
 class Plagarized(models.Model):
@@ -125,3 +118,14 @@ class accounts_usr(models.Model):
 
     class Meta:
         db_table = "accounts_usr"
+
+
+class Notices_Model(models.Model):
+    notice_id = models.BigAutoField(primary_key=True)
+    notice_added_user = models.CharField(max_length=50)
+    notice_issue_date = models.DateTimeField(auto_now_add=True)
+    notice_name = models.CharField(max_length=50)
+    notice_description = models.CharField(max_length=5000)
+
+    class Meta:
+        db_table = "notice_tbl"

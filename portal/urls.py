@@ -59,6 +59,14 @@ urlpatterns = [
          name="Student New Payment"),
     path('stdnt_indvid_mk_payment', students.stdnt_indvid_mk_payment,
          name="Student New Payment"),
+    path('stdnt_view_payments', students.stdnt_view_payments,
+         name="Student View Payments"),
+
+    path('stdnt_view_notices', students.stdnt_view_notices,
+         name="Student View Notices"),
+    path('stdnt_view_notice', students.stdnt_view_notice,
+         name="Student View Notices"),
+
 
 
 
@@ -71,7 +79,18 @@ urlpatterns = [
          name="Account View Payment Method"),
 
     path('acc_del_payment_method', accounts.acc_del_payment_method,
-         name="Account Delete Payment Method")
+         name="Account Delete Payment Method"),
+    path('acc_view_payments', accounts.acc_view_payments,
+         name="Account View Payments"),
+    path('acc_stdnt_view_payments', accounts.acc_sdnt_view_payments,
+         name="Account STDNT View Payments"),
+    path('acc_add_notice', accounts.acc_add_notices,
+         name="Account Add Notice"),
+    path('acc_view_notices', accounts.acc_view_notices,
+         name="Account View Notices"),
+    path('acc_view_notice', accounts.acc_view_notice,
+         name="Account View Notices")
+
 
 
 

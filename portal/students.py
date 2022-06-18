@@ -3,7 +3,8 @@ from django.conf import settings
 
 from django.http.response import Http404
 from flask import jsonify
-from portal.models import Assignments, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model,Payments_Model
+from numpy import amax
+from portal.models import Assignments, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -329,7 +330,7 @@ def stdnt_indvid_mk_payment(request):
                             'userName': getDetails.stdnt_UserName,
                             'PaymentData': PaymentData[0],
                             'suc': request.GET.get('suc')
-                        }   
+                        }
                     else:
                         context = {
                             'userName': getDetails.stdnt_UserName,
@@ -339,30 +340,98 @@ def stdnt_indvid_mk_payment(request):
 
                     return render(request, 'student/stdnt_indvid_mk_payment.html', context)
                 else:
-                    return HttpResponseRedirect('stdnt_nw_assignment?id=invalid')
+                    return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
 
             else:
-                return HttpResponseRedirect('stdnt_nw_assignment?id=invalid')
+                return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
 
         if request.method == "POST":
 
-            frm_fees_type_id = request.POST.get('assignment_id')
-            frm_fees_submited_Roll = request.POST.get('assignmt_stdnt_Roll')
-            frm_fee_payment_mode = request.POST.get('uploadedFile')
-            frm_fee_razorpay_id = request.POST.get('uploadedFile')
-            frm_payment_state = request.POST.get('upload_date_and_Time')
-            payment_submittion_date = request.POST.get('assignment_status')
+            frm_fees_type = request.POST.get('frm_fees_type')
+            frm_fees_submited_Roll = request.POST.get('frm_fees_submited_Roll')
+            frm_fee_razorpay_id = request.POST.get('razorpay_payment_id')
+            frm_payment_state = request.POST.get('frm_payment_state')
+            frm_fees_amount = request.POST.get('frm_fees_amount')
+            reason = request.POST.get('reason')
 
-            print('Student Payment Upload Posted')
+            print(frm_payment_state)
+            if reason == "Success":
+                SavePayment = Payments_Model(fees_type=frm_fees_type, fees_submited_Roll=frm_fees_submited_Roll, razorpay_payment_id=frm_fee_razorpay_id,
+                                             payment_state=frm_payment_state, reason="Success", amount=frm_fees_amount).save()
+                passValue = 'stdnt_nw_payment?suca=success'
+                return HttpResponseRedirect(passValue)
+            else:
+                SavePayment = Payments_Model(fees_type=frm_fees_type, fees_submited_Roll=frm_fees_submited_Roll, razorpay_payment_id=frm_fee_razorpay_id,
+                                             payment_state=frm_payment_state, reason=reason, amount=frm_fees_amount).save()
+                passValue = 'stdnt_nw_payment?sucl=failed'
+                return HttpResponseRedirect(passValue)
 
-            saveUploadAssignment = Payments_Model().save()
-            print(saveUploadAssignment)
-
-            print('Student Assignment Update Succsesscull')
             # id=request.POST.get('id')
-            passValue = 'stdnt_nw_assignment?suc=updated'
-            return HttpResponseRedirect(passValue)
 
+    else:
+        return HttpResponseRedirect('login')
+
+
+def stdnt_view_payments(request):
+
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.filter(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            PaymentsData = Payments_Model.objects.filter(
+                fees_submited_Roll=getDetails[0].stdnt_Roll)
+
+            context = {
+                'userName': getDetails[0].stdnt_UserName,
+                'PaymentsData': PaymentsData,
+
+            }
+
+            return render(request, 'student/stdnt_view_payments.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def stdnt_view_notices(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.get(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            NoticesData = Notices_Model.objects.all()
+
+            context = {
+                'userName': getDetails.stdnt_Name,
+                'NoticesData': NoticesData,
+            }
+
+            return render(request, 'student/stdnt_view_notices.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def stdnt_view_notice(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.get(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            NoticesData = Notices_Model.objects.filter(
+                notice_id=request.GET.get('notice_id'))
+
+            context = {
+                'userName': getDetails.stdnt_Name,
+                'NoticesData': NoticesData[0],
+            }
+
+            return render(request, 'student/stdnt_view_notice.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
     else:
         return HttpResponseRedirect('login')
 

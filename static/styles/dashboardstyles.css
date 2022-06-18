@@ -3,7 +3,7 @@
 .dashboard-top-menu {
   background: white;
   box-shadow: 12px 2px 12px #CCC;
-  padding: 1% !important;
+  /* padding: 1% !important; */
   z-index: 99;
 }
 
@@ -67,14 +67,14 @@
   width: 0;
   position: fixed;
   z-index: 1;
-  top: 130px;
+  top: 140px;
   left: 0;
   background-color: #fbfbfb;
   box-shadow: 3px -2px 12px #cccccc96;
   overflow-x: hidden;
   transition: 0.5s;
   border-right: 1px solid #dae0e5;
-  padding-top: 60px;
+  padding-top: 0px;
 }
 
 .sidenav a {
@@ -219,7 +219,7 @@ textarea {
     font-size: 18px;
   }
   .dashboard-top-menu {
-    padding-top: 5px;
+    padding-top: 3px;
   }
   .dashboard-top-menu .navbar-nav {
     display: none !important

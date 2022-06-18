@@ -1,6 +1,6 @@
-{% extends 'accounts_nav.html' %}
+{% extends 'student_nav.html' %}
 
-{% block title %} View Student
+{% block title %} View Notices
 {% endblock title %}
 {% block body %}
 
@@ -18,28 +18,30 @@
                         id="view_stdnts">
                         <thead class="table-dark">
                             <th>S.I</th>
-                            <th>Student Name</th>
-                            <th>Roll No</th>
-                            <th>Branch</th>
+                            <th>Notice ID</th>
+                            <th>Notice Name</th>
+                            <th>Notice Added By</th>
+                            <th>Notice Added Date</th>
                             <th>Action</th>
 
 
                         </thead>
                         <tbody>
 
-                            {% for data in studentData %}
+                            {% for data in NoticesData %}
 
                             <tr>
-                                <td id="{{data.stdnt_id}}_stdnt_id">{{forloop.counter}}</td>
-                                <td id="{{data.stdnt_id}}_stdnt_Name">{{data.stdnt_Name}}</td>
-                                <td id="{{data.stdnt_id}}_stdnt_Roll">{{data.stdnt_Roll}} </td>
-                                <td id="{{data.stdnt_id}}_stdnt_Branch">{{data.stdnt_Branch}}</td>
+                                <td id="{{data.notice_id}}_notice_id">{{forloop.counter}}</td>
+                                <td id="{{data.notice_id}}_notice_name">TRKEC/2022/{{data.notice_id}}</td>
+                                <td id="{{data.notice_id}}notice_name">{{data.notice_name}}</td>
+                                <td id="{{data.notice_id}}notice_name">{{data.notice_added_user}} </td>
+                                <td id="{{data.notice_id}}notice_issue_date">{{data.notice_issue_date}}</td>
                                 <td>
                                     <center>
-                                        <a href="acc_stdnt_view_payments?stdnt_Roll={{data.stdnt_Roll}}">
+                                        <a href="stdnt_view_notice?notice_id={{data.notice_id}}">
                                             <button type="button" class="btn btn-primary">
 
-                                                <span class="fa fa-eye"> </span> View Payments
+                                                <span class="fa fa-eye"> </span> View Notice
 
                                             </button>
                                         </a>

@@ -11,20 +11,14 @@
                     <h2 class="pl-2">
                         <b><span class="fa fa-clipboard-list"></span> Make Payments</b>
                     </h2>
-                    {% if request.GET.id == 'invalid' %}
-                        <div class="alert alert-danger card m-2">
-                            <strong><span class="fa fa-times-circle"></span> ERROR!</strong> Something Went Wrong.!
-                        </div>
-                    {% endif %}
-                    {% if request.GET.suc == 'updated' %}
+                    {% if request.GET.suca == 'success' %}
                         <div class="alert alert-success card m-2">
                             <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Payment Made Sucessfully.!
                         </div>
                     {% endif %}
-                    {% if request.GET.del == 'suc' %}
-                        <div class="alert alert-success card m-2">
-                            <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Assignment Deleted
-                            Sucessfully.!
+                    {% if request.GET.sucl == 'failed' %}
+                        <div class="alert alert-danger card m-2">
+                            <strong><span class="fa fa-check-circle"></span> ERROR!</strong> Something went wrong.!
                         </div>
                     {% endif %}
                     <div class="conainer bg-white table-responsive-sm ml-2">
@@ -37,8 +31,6 @@
                                 <th>Fees Description</th>
                                 <th>Fees Amount</th>
                                 <th>Action</th>
-
-                                
                             </thead>
                             <tbody>
                                 {% for data in FeesDetails %}
@@ -47,31 +39,29 @@
                                         <td id="{{ data.fees_id }}_fees_type">{{ data.fees_type }}</td>
                                         <td id="{{ data.fees_id }}_fees_name">{{ data.fees_name }}</td>
                                         <td id="{{ data.fees_id }}_fees_amount">{{ data.fees_amount }}</td>
-
-                                        
-                                    <td>
-                                        <center>
-                                            <a href="stdnt_indvid_mk_payment?id={{ data.fees_id }}">
-                                                <button type="button" class="btn btn-primary">
-                                                    <span class="fa fa-upload"></span> Make Payment
-                                                </button>
-                                            </a>
-                                        </center>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <br>
+                                        <td>
+                                            <center>
+                                                <a href="stdnt_indvid_mk_payment?id={{ data.fees_id }}">
+                                                    <button type="button" class="btn btn-primary">
+                                                        <span class="fa fa-upload"></span> Make Payment
+                                                    </button>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-    </body>
-    <script>
+        </body>
+        <script>
     openNav();
     $(document).ready(function () {
         $('#list_assignments').DataTable();
     });
-    </script>
-{% endblock %}
+        </script>
+    {% endblock %}
 </html>

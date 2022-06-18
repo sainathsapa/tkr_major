@@ -2,7 +2,8 @@ import os
 from django.conf import settings
 
 from django.http.response import Http404
-from portal.models import Assignments, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, accounts_usr
+from regex import P
+from portal.models import Assignments, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, accounts_usr, Payments_Model, Notices_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -104,7 +105,7 @@ def acc_view_payment_types(request):
             }
 
             return render(request, 'accounts/acc_view_payment_types.html', context)
-        except Teachers_Model.DoesNotExist:
+        except accounts_usr.DoesNotExist:
             return HttpResponseRedirect('login')
     else:
         return HttpResponseRedirect('login')
@@ -129,5 +130,119 @@ def acc_del_payment_method(request):
             print(e)
             return HttpResponseRedirect('acc_view_payment_types?del=fail')
 
+    else:
+        return HttpResponseRedirect('login')
+
+
+def acc_view_payments(request):
+
+    if 'Acc_UserName' in request.session:
+
+        getDetails = accounts_usr.objects.get(
+            acc_UserName=request.session['Acc_UserName'])
+        print(getDetails)
+        Payments = Payments_Model.objects.all()
+
+        context = {
+            'userName': getDetails.acc_Name,
+            'PaymentsData': Payments
+
+        }
+
+        return render(request, 'accounts/acc_view_payments.html', context)
+    else:
+        return HttpResponseRedirect('login')
+
+
+def acc_sdnt_view_payments(request):
+    if 'Acc_UserName' in request.session:
+        try:
+            if request.GET.get('stdnt_Roll'):
+
+                getDetails = accounts_usr.objects.get(
+                    acc_UserName=request.session['Acc_UserName'])
+                print(getDetails)
+                PaymentsData = Payments_Model.objects.filter(
+                    fees_submited_Roll=request.GET.get('stdnt_Roll'))
+
+                context = {
+                    'userName': getDetails.acc_Name,
+                    'PaymentsData': PaymentsData,
+
+                }
+
+                return render(request, 'accounts/acc_stdnt_view_payments.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def acc_add_notices(request):
+    if 'Acc_UserName' in request.session:
+        try:
+            getDetails = accounts_usr.objects.get(
+                acc_UserName=request.session['Acc_UserName'])
+            print(getDetails)
+            print('Acc Logged')
+            context = {
+                'userName': getDetails.acc_UserName
+            }
+
+            if request.method == 'POST':
+                POST = request.POST
+                notice_added_user = getDetails.acc_UserName
+                notice_name = POST.get('notice_name')
+                notice_description = POST.get('notice_description')
+
+                SaveNotice = Notices_Model(
+                    notice_added_user=notice_added_user, notice_name=notice_name, notice_description=notice_description).save()
+                print(SaveNotice)
+                return HttpResponseRedirect('acc_add_notice?suc=added')
+
+            return render(request, 'accounts/acc_add_notice.html', context)
+        except accounts_usr.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def acc_view_notices(request):
+    if 'Acc_UserName' in request.session:
+        try:
+            getDetails = accounts_usr.objects.get(
+                acc_UserName=request.session['Acc_UserName'])
+            print(getDetails)
+            NoticesData = Notices_Model.objects.all()
+
+            context = {
+                'userName': getDetails.acc_UserName,
+                'NoticesData': NoticesData,
+            }
+
+            return render(request, 'accounts/acc_view_notices.html', context)
+        except accounts_usr.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def acc_view_notice(request):
+    if 'Acc_UserName' in request.session:
+        try:
+            getDetails = accounts_usr.objects.get(
+                acc_UserName=request.session['Acc_UserName'])
+            print(getDetails)
+            NoticesData = Notices_Model.objects.filter(
+                notice_id=request.GET.get('notice_id'))
+
+            context = {
+                'userName': getDetails.acc_UserName,
+                'NoticesData': NoticesData[0],
+            }
+
+            return render(request, 'accounts/acc_view_notice.html', context)
+        except accounts_usr.DoesNotExist:
+            return HttpResponseRedirect('login')
     else:
         return HttpResponseRedirect('login')

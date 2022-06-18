@@ -109,3 +109,4 @@ def logout(request):
     request.session['stdnt_usr'] = ""
 
     return HttpResponseRedirect('login')
+

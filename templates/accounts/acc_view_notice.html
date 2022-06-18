@@ -1,0 +1,140 @@
+{% extends 'accounts_nav.html' %}
+{% block title %}
+    View Notices
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5 ml-auto">
+                <div class="card border-1">
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-eye"></span> View Notices</b>
+                    </h2>
+                    <div class="card-body">
+                        <br>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col col-md-6">
+                                        <label>
+                                            <b><span class="fa fa-sort-amount-down"></span> Notice ID :</b>
+                                        </label>
+                                        <input type="text"
+                                               class="form-control"
+                                               name="NoticesData"
+                                               value="TKREC/2022/{{ NoticesData.notice_id }}"
+                                               disabled
+                                               required/>
+                                    </div>
+                                    <div class="col col-md-6">
+                                        <label>
+                                            <b><span class="fa fa-user"></span> Notice Added By :</b>
+                                        </label>
+                                        <input type="text"
+                                               class="form-control"
+                                               name="notice_added_user"
+                                               value="{{ NoticesData.notice_added_user }}"
+                                               required
+                                               readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <b><span class="fa fa-calendar-day "></span> Notice Added Date & Time :</b>
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="stdnt_sbumit_dt"
+                                           value="{{ NoticesData.notice_issue_date }}"
+                                           required
+                                           readonly/>
+                                </div>
+                                <div class="form-group"></div>
+                                <div class="form-group"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        <b><span class="fa fa-file-signature"></span> Notice Description :</b>
+                                    </label>
+                                    <br>
+                                    <textarea class="form-control" rows="6" name="review_frm" readonly>{{NoticesData.notice_description}} </textarea>
+                                </div>
+                                <div class="form-group"></div>
+                                <div class="form-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+openNav();
+
+
+
+if($('#stdnt_Branch').val()=='none')
+{
+                $('#submit_btn').attr('disabled','disabled');
+
+}
+function selectCheck() {
+var selectval = $('#stdnt_Branch'); 
+
+ if (selectval.val()=='none') {
+
+           
+            $('#submit_btn').attr('disabled','disabled');
+			alert('Select Branch');
+
+
+
+        } else 
+           
+            $('#submit_btn').attr('disabled',false);
+
+
+        
+
+}
+
+function checkpwd(cnf_pwd) {
+        var pwdID = $('#pwd').val()
+
+        var msg = $('#msgbox');
+        var btn_submit = ('#submit_btn');
+
+        if (pwdID != cnf_pwd) {
+
+            console.log('not matched');
+            msg.css('display', 'block');
+            // $("#form").submit(function (e) {
+            //     alert('Check Passwords');
+            //     e.preventDefault(e);
+            // });
+            $('#submit_btn').attr('disabled','disabled');
+
+
+
+        } else if (pwdID == cnf_pwd) {
+            console.log('matched');
+            msg.css('display', 'none');
+            $('#submit_btn').attr('disabled',false);
+			
+				if($('#stdnt_Branch').val()=='none')
+				{
+								$('#submit_btn').attr('disabled','disabled');
+
+				}
+
+
+        }
+}
+
+</script>
+{% endblock %}
+</html>
