@@ -128,9 +128,14 @@ urlpatterns = [
     path('lib_view_notice', library.lib_view_notice,
          name="library View Notices"),
     path('lib_book_issues', library.lib_book_issues,
-         name="library View Notices"),
- path('lib_pending_books', library.lib_pending_books,
-         name="library View Notices")
+         name="library View Book Issues"),
+    path('lib_pending_books', library.lib_pending_books,
+         name="library View Pending Books"),
+    path('lib_stdnt_view_books', library.lib_stdnt_view_books,
+         name="library Student Book Borrow Notices"),
+    path('lib_profile', library.lib_profile,
+         name="library Profile")
+
 
 
 

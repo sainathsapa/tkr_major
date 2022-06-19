@@ -21,7 +21,7 @@
 									{% comment %} <p class="h6  text-dark p-0 m-0">Students in you control</p> {% endcomment %}
 								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{total_reg}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -38,9 +38,9 @@
 						<tbody>
 							<tr>
 								<td>
-									<p class="h5  text-dark p-0 m-0">Student Submitted Assignments</p>								</td>
+									<p class="h5  text-dark p-0 m-0">Total Books Available</p>								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{booksCount}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -56,10 +56,10 @@
 						<tbody>
 							<tr>
 								<td>
-									<p class="h5  text-dark p-0 m-0">Pending Students Assignments</p>
+									<p class="h5  text-dark p-0 m-0">Total Pending Book Requests</p>
 								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{PendingBookReq}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -75,10 +75,10 @@
 						<tbody>
 							<tr>
 								<td>
-									<p class="h5  text-dark p-0 m-0">Greater than 60% Plagiarism</p>
+									<p class="h5  text-dark p-0 m-0">Books Issued Till Date</p>
 								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{BooksIssuedTill}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -93,33 +93,17 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-8 p-3" align="center">
 				<div class="blockcover">
-					<img src="images/download.png" width="80%" />
+					<img src="/static/images/lib.jpg" width="80%" />
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-4 p-3 " align="center">
 				<div class="blockcover">
-					<h2>Last 5 Submittions</h2>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
+					<h2>Latest 5 requests</h2>
+					{% for data in last5Requests %}
+					<marquee direction="up" behavior="slide" scrollamount="3" class="text-black">
+						<a class="text-black" style="text-decoration: none;"href="lib_update_book_rq?id={{data.book_issue_id}}">Student {{data.book_borrower_roll}} Has Requested {{data.book_borrow_book_id}} on {{data.book_borrow_requested_date}}</a>
 					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-					
+					{% endfor %}
 				</div>
 			</div>
 		</div>

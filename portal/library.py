@@ -28,8 +28,23 @@ def lib_dashboard(request):
             getDetails = Library_User_Model.objects.get(
                 lib_userName=request.session['LibUserName'])
             print(getDetails)
+            total_reg = Students_Model.objects.all().count()
+            booksCount = Books_Model.objects.all().count()
+            PendingBookReq = Book_Issue_Model.objects.filter(
+                book_issue_state="Pending").count()
+            BooksIssuedTill = Book_Issue_Model.objects.filter(
+                book_issue_state="Issued").count()
+            last5Requests = Book_Issue_Model.objects.filter(
+                book_issue_state="Pending")[:5:1]
+
             context = {
-                'userName': getDetails.lib_userName
+                'userName': getDetails.lib_userName,
+                'total_reg': total_reg,
+                'booksCount': booksCount,
+                'PendingBookReq': PendingBookReq,
+                'BooksIssuedTill': BooksIssuedTill,
+                'last5Requests': last5Requests
+
             }
             return render(request, 'library/dashboard.html', context)
         except Library_User_Model.DoesNotExist:
@@ -311,20 +326,43 @@ def lib_pending_books(request):
                 lib_userName=request.session['LibUserName'])
             print(getDetails)
 
-
             futuredate = datetime.now() + timedelta(days=-1)
-            futuredate=futuredate.strftime("%Y-%m-%d-%H:%M:%S")
-            BookIssueData=Book_Issue_Model.objects.all()
+            futuredate = futuredate.strftime("%Y-%m-%d-%H:%M:%S")
+            BookIssueData = Book_Issue_Model.objects.all()
 
-            context={
+            context = {
                 'userName': getDetails.lib_userName,
                 'BookIssueData': BookIssueData,
-                'dt':futuredate
+                'dt': futuredate
 
 
             }
 
             return render(request, 'library/lib_view_borrow_pending.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def lib_stdnt_view_books(request):
+    if 'LibUserName' in request.session:
+        try:
+            getDetails = Library_User_Model.objects.get(
+                lib_userName=request.session['LibUserName'])
+            print(getDetails)
+            GETROLL = request.GET.get('stdnt_Roll')
+            BookIssueData = Book_Issue_Model.objects.filter(
+                book_borrower_roll=GETROLL)
+
+            context = {
+                'userName': getDetails.lib_userName,
+                'PendingBookReq': BookIssueData
+
+
+            }
+
+            return render(request, 'library/lib_view_borrow_req.html', context)
         except Students_Model.DoesNotExist:
             return HttpResponseRedirect('login')
     else:
@@ -395,6 +433,53 @@ def lib_view_notice(request):
             }
 
             return render(request, 'library/lib_view_notice.html', context)
+        except Library_User_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def lib_profile(request):
+    if 'LibUserName' in request.session:
+        try:
+            if request.method == 'GET':
+                getDetails = Library_User_Model.objects.filter(
+                    lib_userName=request.session['LibUserName'])
+                print(getDetails)
+
+                if request.GET.get('suc') == 'updated':
+                    context = {
+                        'userName': getDetails[0].lib_userName,
+                        'LibUserData': getDetails[0],
+                        # 'suc': request.GET.get('suc')
+                    }
+                else:
+                    context = {
+                        'userName': getDetails[0].lib_userName,
+                        'LibUserData': getDetails[0]
+                    }
+
+                return render(request, 'library/lib_profile.html', context)
+
+            if request.method == "POST":
+                POST = request.POST
+                id = POST.get('id')
+                frm_userName = POST.get('lib_userName')
+                frm_pwd = POST.get('lib_PWD')
+                frm_email = POST.get('lib_Email')
+                frm_FullName = POST.get('lib_FullName')
+                print('Lib Updated Posted')
+                UpdateLIb = Library_User_Model.objects.filter(lib_user_id=id).update(
+                    lib_userName=frm_userName, lib_userEmail=frm_email, lib_user_FullName=frm_FullName, lib_user_pwd=frm_pwd)
+                print(UpdateLIb)
+
+                request.session['LibUserName'] = frm_userName
+
+                # saveStudent = Students_Model(stdnt_Name=frm_stdnt_FLNM, stdnt_Roll=frm_stdnt_Roll, stdnt_Branch=frm_stdnt_Branch,stdnt_DOB=frm_stdnt_DOB,stdnt_Gender=frm_stdnt_Gender,stdnt_Email=frm_stdnt_Email,stdnt_Mobile=frm_stdnt_Mobile,stdnt_UserName=frm_stdnt_USRName,stdnt_PWD=frm_stdnt_PWD,stdnt_is_Active=frm_stdnt_active).save()
+                # print(saveStudent)
+
+                return HttpResponseRedirect('lib_dashboard')
+
         except Library_User_Model.DoesNotExist:
             return HttpResponseRedirect('login')
     else:
