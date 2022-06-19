@@ -129,3 +129,39 @@ class Notices_Model(models.Model):
 
     class Meta:
         db_table = "notice_tbl"
+
+
+class Library_User_Model(models.Model):
+    lib_user_id = models.BigAutoField(primary_key=True)
+    lib_userName = models.CharField(max_length=50)
+    lib_user_Gender = models.BooleanField(default=False)
+    lib_userEmail = models.CharField(max_length=50)
+    lib_user_FullName = models.CharField(max_length=50)
+    lib_user_pwd = models.CharField(max_length=250)
+
+    class metadata:
+        db_table = "library_user_tbl"
+
+
+class Books_Model(models.Model):
+    book_id = models.BigAutoField(primary_key=True)
+    book_Name = models.CharField(max_length=50)
+    book_author = models.CharField(max_length=50)
+    book_img = models.CharField(max_length=500)
+    book_special_category = models.CharField(max_length=50)
+    book_desc = models.CharField(max_length=1000)
+    book_stock = models.IntegerField()
+    book_addedBy = models.CharField(max_length=50)
+    book_added_date = models.DateTimeField(auto_now_add=True)
+
+    class metadata:
+        db_table = "books_tbl"
+
+
+class Book_Issue_Model(models.Model):
+    book_issue_id = models.BigAutoField(primary_key=True)
+    book_borrower_roll = models.CharField(max_length=50)
+    book_borrow_book_id = models.CharField(max_length=50)
+    book_borrow_requested_date = models.DateTimeField(auto_now_add=True)
+    book_issuer = models.CharField(max_length=50)
+    book_issue_date = models.DateTimeField()

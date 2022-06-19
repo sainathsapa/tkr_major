@@ -1,58 +1,91 @@
-{% extends 'base.html' %} 
-
-{% block title %} Login  
+{% extends 'base.html' %}
+{% block title %}
+    Login
 {% endblock title %}
 {% block body %}
-
-<body class="text-center">
-<br>
-<div class="container card">
-<center>
-<div class="col-md-4">
- <legend>
+    <body class="text-center">
+        <br>
+        <div class="container card">
             <center>
-                <h2><b>Login</b></h2>
+                <div class="col-md-4">
+                    <marquee class="text-danger">* For Parent login user name is Mobile Number *</marquee>
+                    <legend>
+                        <center>
+                            <h2>
+                                <b>Login</b>
+                            </h2>
+                        </center>
+                    </legend>
+                    <br>
+                    {% if err %}
+                        <div class="alert alert-danger">
+                            <strong><span class="fa fa-times-circle"></span> Error!</strong> Check Your Credentials
+                        </div>
+                    {% else %}
+                    {% endif %}
+                    <form class="form-signin" method="post" action="">
+                        {% csrf_token %}
+                        <label for="type" class="sr-only">Login As</label>
+                        <select class="form-control"
+                                name="login_type"
+                                id="login_type"
+                                onchange="selectCheck();"
+                                required>
+                            <option value="none">
+                                Select
+                            </option>
+                            <option value="student">
+                                Student
+                            </option>
+                            <option value="parent">
+                                Parent
+                            </option>
+                            <option value="teacher">
+                                Teacher
+                            </option>
+                            <option value="administration">
+                                Administration
+                            </option>
+                            <option value="library">
+                                Library
+                            </option>
+                            <option value="accounts">
+                                Accounts
+                            </option>
+                            <option value="exam_branch">
+                                Exam Branch
+                            </option>
+                        </select>
+                        <br>
+                        <label for="userName" class="sr-only">Username</label>
+                        <input type="text"
+                               id="userName"
+                               name="login_UserName"
+                               class="form-control"
+                               placeholder="Username"
+                               required
+                               autofocus>
+                        <br>
+                        <label for="PWD" class="sr-only">Password</label>
+                        <input type="password"
+                               id="PWD"
+                               name="login_PWD"
+                               class="form-control"
+                               placeholder="Password"
+                               required>
+                        <br>
+                        <button class="btn button btn-lg btn-primary btn-block"
+                                type="submit"
+                                id="login_btn">
+                            <span>Login</span>
+                        </button>
+                        <br>
+                    </form>
+                </div
             </center>
-        </legend><br>
-        {% if err %}
-              <div class="alert alert-danger">
-  <strong><span class="fa fa-times-circle"> </span> Error!</strong> Check Your Credentials
-</div>
-            {% else %}
-            {% endif %}
-    <form class="form-signin" method="post" action="">
-        {% csrf_token %}
-       
-        <label for="type" class="sr-only">Login As</label>
-        <select class="form-control" name="login_type" id="login_type" onchange="selectCheck();" required>
-        <option value="none"> Select </option>
-        <option value="student"> Student </option>
-        <option value="teacher"> Teacher </option>
-        <option value="parent"> Parent </option>
-        <option value="administration"> Administration </option>
-        <option value="library"> Library </option>
-        <option value="accounts"> Accounts </option>
-        <option value="exam_branch"> Exam Branch </option>
-
-        </select>
-            <br>
-        <label for="userName" class="sr-only">Username</label>
-        <input type="text" id="userName" name="login_UserName" class="form-control" placeholder="Username" required
-            autofocus>
-            <br>
-        <label for="PWD" class="sr-only">Password</label>
-        <input type="password" id="PWD" name="login_PWD" class="form-control" placeholder="Password" required>
-        <br>
-        <button class="btn button btn-lg btn-primary btn-block" type="submit" id="login_btn" ><span> Login </span></button>
-        <br>
-    </form>
-
-</div
-</center>
-
-    </div>
-</body>
-<script>
+        </div>
+    </body>
+    <script>
 if($('#login_type').val()=='none')
 {
                 $('#login_btn').attr('disabled','disabled');
@@ -66,8 +99,6 @@ var selectval = $('#login_type');
            
             $('#login_btn').attr('disabled','disabled');
 
-
-
         } else 
            
             $('#login_btn').attr('disabled',false);
@@ -76,7 +107,6 @@ var selectval = $('#login_type');
         
 
 }
-</script>
-
+    </script>
 {% endblock %}
 </html>

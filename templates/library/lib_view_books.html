@@ -1,0 +1,173 @@
+{% extends 'lib_nav.html' %}
+{% block title %}
+    View Books
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-clipboard-list"></span> View Books</b>
+                    </h2>
+                    {% comment %} {% if request.GET.id =='invalid' %}
+                        <div class="alert alert-danger card m-2">
+                            <strong><span class="fa fa-times-circle"></span> ERROR!</strong> Something Went Wrong.!
+                        </div>
+                    {% endif %} {% endcomment %}
+                    {% if request.GET.del == 'fail' %}
+                        <div class="alert alert-danger card m-2">
+                            <strong><span class="fa fa-times-circle"></span> ERROR!</strong> Something Went Wrong.!
+                        </div>
+                    {% endif %}
+                    {% if request.GET.del == 'succ' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-square"></span> Sucessfull!</strong> Delete Book Deleted Sucessfull
+                        </div>
+                    {% endif %}
+                    {% if request.GET.suc == 'updated' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-square"></span> Sucessfull!</strong> Book Updated Sucessfull
+                        </div>
+                    {% endif %}
+                    {% if request.GET.id == 'invalid' %}
+                        <div class="alert alert-warning card m-2">
+                            <strong><span class="fa fa-check-square"></span> INVALID!</strong> ID SELECTED INVALID
+                        </div>
+                    {% endif %}
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                               id="list_assignments">
+                            <thead class="table-dark">
+                                <th>S.I</th>
+                                <th>Book Image</th>
+                                <th>Book ID</th>
+                                <th>Book Name</th>
+                                <th>Book Author</th>
+                                <th>Book Branch</th>
+                                <th>Book Stock</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                {% for data in BooksData %}
+                                    <tr style="justify-content: center; align-items: center;">
+                                        <td id="{{ data.book_id }}_book_id">{{ forloop.counter }}</td>
+                                        <td id="{{ data.book_id }}_book_img">
+                                            <img src="/{{ data.book_img }}" alt="{{ data.book_id }}" height="120px"/>
+                                        </td>
+                                        <td id="{{ data.book_id }}_book_id">TKREC/{{ data.book_special_category }}/{{ data.book_id }}</td>
+                                        <td id="{{ data.book_id }}_book_Name">{{ data.book_Name }}</td>
+                                        <td id="{{ data.book_id }}_book_author">{{ data.book_author }}</td>
+                                        <td id="{{ data.book_id }}_book_special_category">{{ data.book_special_category }}</td>
+                                        <td id="{{ data.book_id }}_book_stock">{{ data.book_stock }}</td>
+                                        <td>
+                                            <div class="row col-md-12 pl-4 py-1">
+                                                <a href="lib_edit_book?id={{ data.book_id }}">
+                                                    <button type="button" class="btn btn-success">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="row col-md-12 pl-4 py-1">
+                                                <a href="teach_view_submitted_assignments?id={{ data.book_id }}">
+                                                    <button type="button" class="btn btn-primary">
+                                                        <span class="fa fa-eye"></span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="row col-md-12 py-1 pl-4">
+                                                <button type="button"
+                                                        class="btn btn-danger"
+                                                        data-toggle="modal"
+                                                        data-target="#exampleModalCenter"
+                                                        onclick="assignModalValue(this.value);"
+                                                        value="{{ data.book_id }}">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade"
+                 id="exampleModalCenter"
+                 tabindex="-1"
+                 role="dialog"
+                 aria-labelledby="exampleModalCenterTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <b>Book ID : </b> <span id="Mbook_id"></span>
+                            <br>
+                            <b>Book Name: </b> <span id="MBook_Name"></span>
+                            <br>
+                            <b>Book Author: </b> <span id="MBook_Author"></span>
+                            <br>
+                            <b>Book Branch: </b> <span id="MBook_Branch"></span>
+                            <br>
+                            <b>Book Stock: </b> <span id="MBook_Stock"></span>
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="lib_del_book?id={{ data.books_id }}"
+                               id="paymentDeleteLINK">
+                                <button type="button" class="btn btn-danger">
+                                    <span class="fa fa-minus-circle"></span>
+                                    Confirm
+                                </button>
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <span class="fa fa-window-close"></span> Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script>
+    openNav();
+    $(document).ready(function () {
+        $('#list_assignments').DataTable();
+    });
+
+    function assignModalValue(idVar) {
+        var fullIDSelector = "#" + idVar;
+
+        var book_id = fullIDSelector + "_book_id";
+        var BookName = fullIDSelector + "_book_Name";
+        var BookAuthor = fullIDSelector + "_book_author";
+        var BookBranch = fullIDSelector + "_book_special_category";
+        var BookStock=fullIDSelector + "_book_stock"
+
+
+        $("#Mbook_id").text($(book_id).text());
+        $("#MBook_Name").text($(BookName).text());
+        $("#MBook_Author").text($(BookAuthor).text());
+        $("#MBook_Branch").text($(BookBranch).text());
+        $("#MBook_Stock").text($(BookStock).text());
+
+
+
+        var sendAttrLink = "lib_del_book?id=" + idVar;
+
+        $("#paymentDeleteLINK").attr('href', sendAttrLink);
+
+    }
+        </script>
+    {% endblock %}
+</html>

@@ -2,7 +2,7 @@ import os
 from django.conf import settings
 
 from django.http.response import Http404
-from portal.models import Assignments, Students_Model, Teachers_Model, accounts_usr
+from portal.models import Students_Model, Teachers_Model, accounts_usr, Library_User_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -98,6 +98,20 @@ def login(request):
                 }
             return render(request, 'login.html', context)
 
+        if(login_type == 'library'):
+
+            try:
+                userDeat = Library_User_Model.objects.get(lib_userName=request.POST.get(
+                    'login_UserName'), lib_user_pwd=request.POST.get('login_PWD'))
+                request.session['LibUserName'] = userDeat.lib_userName
+                return HttpResponseRedirect('lib_dashboard')
+
+            except Library_User_Model.DoesNotExist:
+                context = {
+                    'err': "Check Credentials"
+                }
+            return render(request, 'login.html', context)
+
     else:
 
         return render(request, 'login.html')
@@ -109,4 +123,3 @@ def logout(request):
     request.session['stdnt_usr'] = ""
 
     return HttpResponseRedirect('login')
-

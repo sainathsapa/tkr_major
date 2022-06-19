@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from portal import accounts, views
 from portal import students
 from portal import teach
+from portal import library
 
 
 urlpatterns = [
@@ -66,6 +67,12 @@ urlpatterns = [
          name="Student View Notices"),
     path('stdnt_view_notice', students.stdnt_view_notice,
          name="Student View Notices"),
+    path('stdnt_new_borrow_req', students.stdnt_new_borrow_req,
+         name="Student View Books"),
+    path('stdnt_view_book', students.stdnt_view_book,
+         name="Student View Book"),
+#     path('posted_book_borrow_req', students.posted_book_borrow_req,
+#          name="Student View Book"),
 
 
 
@@ -89,7 +96,20 @@ urlpatterns = [
     path('acc_view_notices', accounts.acc_view_notices,
          name="Account View Notices"),
     path('acc_view_notice', accounts.acc_view_notice,
-         name="Account View Notices")
+         name="Account View Notices"),
+
+
+    # Library Model
+    path('lib_dashboard', library.lib_dashboard, name="Library Dashboard"),
+    path('lib_view_stdnts', library.lib_view_stdnts,
+         name="Library View Students"),
+
+    path('lib_add_new_book', library.lib_add_new_book, name="Library Add Book"),
+    path('lib_view_books', library.lib_view_books, name="Library View Book"),
+    path('lib_edit_book', library.lib_edit_book, name="Library Edit Book"),
+    path('lib_del_book', library.lib_del_book, name="Library Edit Book")
+
+
 
 
 

@@ -1,0 +1,162 @@
+{% extends 'student_nav.html' %}
+{% block title %}
+    Borrow Books
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-clipboard-list"></span> Borrow Books</b>
+                    </h2>
+                    {% if request.GET.id == 'invalid' %}
+                        <div class="alert alert-danger card m-2">
+                            <strong><span class="fa fa-times-circle"></span> ERROR!</strong> Something Went Wrong.!
+                        </div>
+                    {% endif %}
+                    {% if request.GET.suc == 'updated' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> File Uploaded Sucessfully.!
+                        </div>
+                    {% endif %}
+                    {% if request.GET.del == 'suc' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Assignment Deleted Sucessfully.!
+                        </div>
+                    {% endif %}
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <label>Select Branch</label>
+                        <select name="branch_name"
+                                class="form-control col-md-2"
+                                id="branch_name"
+                                onchange="changeBranch(this.value)">
+                            <option value="none">
+                                Select
+                            </option>
+                            <option value="CSE">
+                                Computer Science & Engineering
+                            </option>
+                            <option value="ECE">
+                                Electronic & Comm. Engineering
+                            </option>
+                            <option value="IT">
+                                Information Technology
+                            </option>
+                            <option value="CE">
+                                Civil Engineering
+                            </option>
+                            <option value="Sports">
+                                Sports
+                            </option>
+                            <option value="Other">
+                                Other
+                            </option>
+                        </select>
+                        <br>
+                        <h2 class="text-center">
+                            <u>{{ BooksData.0.book_special_category }}</u>
+                        </h2>
+                        {% comment %} ================================================================= {% endcomment %}
+                        <div class="row col-md-12">
+                            <br>
+                            {% for data in BooksData %}
+                                <div class="justify-content col-md-4">
+                                    <div class="card col-md-12 p-1">
+                                       <center> <img src="/{{ data.book_img }}"
+                                             class=""
+                                             alt="{{ data.book_Name }}"
+                                             height="150px"
+                                             width="100px"/>
+                                       </center>
+
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-1 col-md-12">
+                                                <a href="stdnt_view_book?id={{ data.book_id }}"
+                                                   style="text-decoration: none;">
+                                                    <h5 class="mb-0 text-primary"
+                                                        onmouseover="this.style.color='#0F0'"
+                                                        style="color: rgb(0, 255, 0);">
+                                                        {{ data.book_Name }}
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="small text-muted">{{ data.book_desc }}</p>
+                                            </div>
+                                            <div class="justify-content-between">
+                                                <p class="text-muted mb-0">
+                                                    Available: <span class="fw-bold text-danger">{{ data.book_stock }}</span>
+                                                </p>
+                                                {% if data.book_stock <= 1 %}
+                                                    <button class="btn btn-danger" disabled="true">
+                                                        <svg class="svg-inline--fa fa-hand"
+                                                             aria-hidden="true"
+                                                             focusable="false"
+                                                             data-prefix="fas"
+                                                             data-icon="hand"
+                                                             role="img"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             viewBox="0 0 512 512"
+                                                             data-fa-i2svg="">
+                                                            <path fill="currentColor" d="M480 128v208c0 97.05-78.95 176-176 176h-37.72c-53.42 0-103.7-20.8-141.4-58.58l-113.1-113.1C3.906 332.5 0 322.2 0 312C0 290.7 17.15 272 40 272c10.23 0 20.47 3.906 28.28 11.72L128 343.4V64c0-17.67 14.33-32 32-32s32 14.33 32 32l.0729 176C192.1 248.8 199.2 256 208 256s16.07-7.164 16.07-16L224 32c0-17.67 14.33-32 32-32s32 14.33 32 32l.0484 208c0 8.836 7.111 16 15.95 16S320 248.8 320 240L320 64c0-17.67 14.33-32 32-32s32 14.33 32 32l.0729 176c0 8.836 7.091 16 15.93 16S416 248.8 416 240V128c0-17.67 14.33-32 32-32S480 110.3 480 128z">
+                                                            </path>
+                                                        </svg>
+                                                        <!-- <i class="fa-solid fa-hand"></i> Font Awesome fontawesome.com -->
+                                                        Out of Stock
+                                                    </button>
+                                                {% else %}
+                                                    <a href="posted_book_borrow_req?id={{ data.book_id }}&roll_num={{roll_number}}">
+                                                        <button class="btn btn-danger">
+                                                            <!-- <i class="fa fa-shopping-cart" aria-hidden="true"></i> Font Awesome fontawesome.com -->
+                                                            Borrow
+                                                        </button>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <br>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% comment %} ================================================================= {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script>
+  openNav();
+  {% comment %} $(document).ready(function () {
+    $('#list_assignments').DataTable();
+  }); {% endcomment %}
+
+
+  function changeBranch(value){
+    URL="/portal/stdnt_new_borrow_req?branch="+value
+    //alert(URL);
+        window.location.assign(URL);
+}
+  
+
+
+
+
+        </script>
+        <style>
+    .small{
+        display: -webkit-box;
+    line-height: 21px;
+    max-height: 48px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow:hidden
+
+
+    }
+        </style>
+    {% endblock %}
+</html>

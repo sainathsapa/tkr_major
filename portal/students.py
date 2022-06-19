@@ -1,10 +1,13 @@
 import os
+from pickle import GET
 from django.conf import settings
+import urllib
+
 
 from django.http.response import Http404
 from flask import jsonify
 from numpy import amax
-from portal.models import Assignments, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model
+from portal.models import Assignments, Books_Model, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -436,35 +439,94 @@ def stdnt_view_notice(request):
         return HttpResponseRedirect('login')
 
 
+def stdnt_new_borrow_req(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            if request.GET.get('branch') == 'none':
+                getDetails = Students_Model.objects.get(
+                    stdnt_UserName=request.session['stdnt_usr'])
+                print(getDetails)
+                BooksData = Books_Model.objects.all()
+
+                context = {
+                    'userName': getDetails.stdnt_Name,
+                    'roll_number': getDetails.stdnt_Roll,
+
+                    'BooksData': BooksData,
+                }
+
+                return render(request, 'student/stdnt_new_book_borrow_req.html', context)
+            else:
+                BranchName = request.GET.get('branch')
+                print(BranchName)
+
+                getDetails = Students_Model.objects.get(
+                    stdnt_UserName=request.session['stdnt_usr'])
+                print(getDetails)
+                BooksData = Books_Model.objects.filter(
+                    book_special_category=BranchName)
+
+                context = {
+                    'userName': getDetails.stdnt_Name,
+                    'roll_number': getDetails.stdnt_Roll,
+                    'BooksData': BooksData,
+                }
+
+                return render(request, 'student/stdnt_new_book_borrow_req.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def stdnt_view_book(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.get(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            BookData = Books_Model.objects.filter(
+                book_id=request.GET.get('id'))
+
+            context = {
+                'userName': getDetails.stdnt_Name,
+                'BookData': BookData[0],
+            }
+
+            return render(request, 'student/stdnt_view_book.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+# def posted_book_borrow_req(request):
+#     if 'stdnt_usr' in request.session:
+
+#         if request.method == "GET":
+#             GETVAR = request.GET
+#             book_id = GETVAR.get('id')
+#             stdnt_roll = GETVAR.get('roll_num')
+#             nameVar = request.session['stdnt_usr']
+#             print(nameVar)
+#             getDetails = Students_Model.objects.filter(
+#                 stdnt_UserName=nameVar)[0]
+#             BooksData = Books_Model.objects.filter(
+#                 book_id=book_id)[0]
+
+#             # AddBookBorrowRequest = Book_Issue_Model(book_borrower_roll=getDetails.stdnt_Roll,book_issuer="Pending",book_requested_book_id=book_id).save()
+#             return render(request, 'student/stdnt_indvid_mk_payment.html')
+#             # else:
+#             #     return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
+
+#         else:
+#             return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
+
+#     else:
+#         return HttpResponseRedirect('login')
+
+
 def handle_uploaded_file(file_passwd, file):
-
-    # import docx2txt
-
-    # # Passing docx file to process function
-    # text = docx2txt.process("test.docx")
-
-    # # Saving content inside docx file into output.txt file
-    # with open("output.txt", "w") as text_file:
-    # 	print(text, file=text_file)
-
-    # import PyPDF2
-
-    # #create file object variable
-    # #opening method will be rb
-    # pdffileobj=open('1.pdf','rb')
-
-    # #create reader variable that will read the pdffileobj
-    # pdfreader=PyPDF2.PdfFileReader(pdffileobj)
-
-    # #This will store the number of pages of this pdf file
-    # x=pdfreader.numPages
-
-    # #create a variable that will select the selected number of pages
-    # pageobj=pdfreader.getPage(x+1)
-
-    # #(x+1) because python indentation starts with 0.
-    # #create text variable which will store all text datafrom pdf file
-    # text=pageobj.extractText()
 
     with open(file_passwd, 'wb+') as destination:
         for chunk in file.chunks():

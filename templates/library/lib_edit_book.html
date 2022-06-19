@@ -1,0 +1,144 @@
+{% extends 'lib_nav.html' %}
+{% block title %}
+    Edit Book
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5 ml-auto">
+                <div class="card border-1">
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-tasks"></span> Edit Book</b>
+                    </h2>
+                    <hr>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data" id="form">
+                            {% csrf_token %}
+                        </div>
+                        <br>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label>
+                                            <b><span class="fa fa-code-branch"></span> Branch :</b>
+                                        </label>
+                                        <br>
+                                        <select class="form-control" name="book_branch" required>
+                                            <option value="none">
+                                                Select
+                                            </option>
+                                            <option value="CSE"
+                                                    {% if BookData.book_special_category == "CSE"  %}  selected{% endif %}>
+                                                Computer Science & Engineering
+                                            </option>
+                                            <option value="ECE"
+                                                    {% if BookData.book_special_category == "ECE"  %}  selected{% endif %}>
+                                                Electronic & Comm. Engineering
+                                            </option>
+                                            <option value="IT"
+                                                    {% if BookData.book_special_category == "IT"  %}  selected{% endif %}>
+                                                Information Technology
+                                            </option>
+                                            <option value="CE"
+                                                    {% if BookData.book_special_category == "CE"  %}  selected{% endif %}>
+                                                Civil Engineering
+                                            </option>
+                                            <option value="Sports"
+                                                    {% if BookData.book_special_category == "Sports"  %}  selected{% endif %}>
+                                                Sports
+                                            </option>
+                                            <option value="Other"
+                                                    {% if BookData.book_special_category == "Other"  %}  selected{% endif %}>
+                                                Other
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group  col-md-6">
+                                        <label>
+                                            <b><span class="fa fa-book"></span> Book Name:</b>
+                                        </label>
+                                        <input class="form-control"
+                                               name="book_name"
+                                               type="text"
+                                               placeholder="Book Name"
+                                               value="{{ BookData.book_Name }}"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <label>
+                                                <b><span class="fa fa-file-signature"></span> Book Description:</b>
+                                            </label>
+                                            <br>
+                                            <textarea class="form-control" name="book_desc" rows="3" required>
+                                                {{BookData.book_desc}}
+
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="book_id" value="{{ BookData.book_id }}" />
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label>
+                                            <b><i class="fa fa-at"></i> Author :</b>
+                                        </label>
+                                        <br>
+                                        <input type="text"
+                                               placeholder="Author"
+                                               id="author"
+                                               name="book_author"
+                                               value="{{ BookData.book_author }}"
+                                               class="form-control"/>
+                                    </div>
+                                    <div class="form-group  col-md-6">
+                                        <label>
+                                            <b><span class="fa fa-calculator"></span> Book Stock:</b>
+                                        </label>
+                                        <input class="form-control"
+                                               name="book_stock"
+                                               type="number"
+                                               placeholder="Stock"
+                                               value="{{ BookData.book_stock }}"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        {% comment %} <label>
+                                            <b><i class="fa fa-file"></i> Book Image :</b>
+                                        </label>
+                                        <br>
+                                        <input type="file"
+                                               placeholder="Author"
+                                               id="author"
+                                               name="book_img"
+                                               class="form-control-file"
+                                               accept="image/*"/>    {% endcomment %}
+                                    </div>
+                                    <div class="form-group  col-md-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success ml-3"
+                                   type="submit"
+                                   value="Update"
+                                   id="submit_btn"/>
+                            <br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>openNav();</script>
+{% endblock %}
+</html>
