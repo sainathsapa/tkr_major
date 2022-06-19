@@ -1,0 +1,124 @@
+{% extends 'lib_nav.html' %}
+
+{% block title %} View New Book Request 
+{% endblock title %}
+{% block body %}
+
+
+<body>
+<div id="main">
+	<div class="container py-5 my-5 ml-auto">	
+			
+    <div class="card border-1">
+  
+              	
+                <h2 class="pl-2"><b><span class="fa fa-eye"> </span> View New Book Request</b></h2>
+           
+           <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data" id="form">
+                {% csrf_token %}
+
+               
+        <br>
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <div class="form-group row">
+                   
+				   <div class="col col-md-6">
+				   <label><b><span class="fa fa-user"></span> Request ID :</b></label>
+
+                    <input type="text" class="form-control" name="request_id" 
+                        value="TRKEC/{{BookRQDATA.book_borrower_roll}}/{{BookRQDATA.book_borrow_book_id}}/{{BookRQDATA.book_issue_id}}" disabled required />
+						</div><input type="hidden" class="form-control" name="book_id" value="{{BookRQDATA.book_borrow_book_id}}" />
+						<div class="col col-md-6">
+				   <label><b><span class="fa fa-sort-amount-down"></span>  Student Roll Number :</b></label>
+
+                    <input type="text" class="form-control" name="stdnt_Roll" value="{{BookRQDATA.book_borrower_roll}}" required readonly />
+						</div>
+
+                </div>
+<div class="form-group">
+                    <label><b><span class="fa fa-calendar-day
+"></span> Request Date & Time :</b></label>
+
+                    <input type="text" class="form-control" name="request_dt" value="{{BookRQDATA.book_borrow_requested_date}}"
+                        required readonly />
+                </div>
+                <div class="form-group">
+				
+                  
+
+                </div>
+                
+				
+                <div class="form-group">
+                    <label><b><span class="fa fa-share-square
+"></span> Set  Status :</b></label>
+                    <select class="form-control" name="status_frm">
+
+                    <option value="Pending"
+                    
+                    {% if BookRQDATA.book_issue_state == "Pending"  %}
+                            
+                            selected
+                            
+                            {% endif %}
+                    
+                    >Pending </option>
+                    <option value="Not Opened"  
+                    
+                    {% if BookRQDATA.book_issue_state == "Issued"  %}
+                            
+                            selected
+                            
+                            {% endif %}
+                            >Issued </option>
+                  
+
+                    </select>
+                </div>
+               
+				
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+				  <label><b><span class="fa fa-book"></span> Book ID :</b></label> <br>
+
+                    <input type="text" class="form-control" name="bk_nm" value="{{BookRQDATA.book_borrow_book_id}}"
+                        required readonly/>
+
+                   
+                </div>
+				
+                
+               
+
+
+            </div>
+        </div>
+    </div>
+	 <div class="form-group">
+<input type="hidden" name="id" value={{BookRQDATA.book_issue_id}} />
+                   
+<input class="btn btn-success ml-3" type="submit" value="Update" id="submit_btn">
+    <br>
+                </div>
+
+
+
+    </form>
+    </div>
+    </div>
+
+
+</div>
+</div>
+</body>
+<script>
+openNav();
+
+
+
+</script>
+{% endblock %}
+</html>

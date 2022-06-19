@@ -164,4 +164,5 @@ class Book_Issue_Model(models.Model):
     book_borrow_book_id = models.CharField(max_length=50)
     book_borrow_requested_date = models.DateTimeField(auto_now_add=True)
     book_issuer = models.CharField(max_length=50)
-    book_issue_date = models.DateTimeField()
+    book_issue_date = models.DateTimeField(null=True, blank=True)
+    book_issue_state = models.CharField(max_length=50)

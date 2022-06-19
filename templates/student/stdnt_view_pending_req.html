@@ -1,0 +1,96 @@
+{% extends 'student_nav.html' %}
+
+{% block title %} View Pending Requests
+{% endblock title %}
+{% block body %}
+
+<body>
+    <div id="main">
+        <div class="container py-5 my-5">
+
+            <div class="card col-md-12 border-1">
+
+
+                {% if request.GET.del == 'fail' %}
+                <div class="alert alert-danger card m-2">
+                    <strong><span class="fa fa-times-circle"></span> ERROR!</strong> Something Went Wrong.!
+                </div>
+            {% endif %}
+            {% if request.GET.req_suc == 'succ' %}
+                <div class="alert alert-success card m-2">
+                    <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Book borrow Requested Sucessfully.!
+                </div>
+            {% endif %}
+            {% if request.GET.del == 'suc' %}
+                <div class="alert alert-success card m-2">
+                    <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Book borrow request Deleted Sucessfully.!
+                </div>
+            {% endif %}
+                <div class="conainer bg-white table-responsive-sm ml-2">
+                    <br>
+                    <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                        id="view_stdnts">
+                        <thead class="table-dark">
+                            <th>S.I</th>
+                            <th>Request ID</th>
+                            <th>Book ID</th>
+                            <th>Request Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+
+                        </thead>
+                        <tbody>
+
+                            {% for data in PendingBookReq %}
+
+                            <tr>
+                                <td id="{{data.book_issue_id}}_book_issue_id">{{forloop.counter}}</td>
+                                <td id="{{data.book_issue_id}}_book_issue_id">TRKEC/{{roll_number}}/{{data.book_borrow_book_id}}/{{data.book_issue_id}}</td>
+                                <td id="{{data.book_issue_id}}book_borrow_book_id">{{data.book_borrow_book_id}}</td>
+                                <td id="{{data.book_issue_id}}book_borrow_book_id">{{data.book_borrow_requested_date}} </td>
+                                <td id="{{data.book_issue_id}}book_borrow_book_id">{{data.book_issue_state}}</td>
+                                <td>
+                                    <center>
+                                        <a href="stdnt_del_borrow_req?book_issue_id={{data.book_issue_id}}">
+                                            <button type="button" class="btn btn-danger">
+
+                                                <span class="fa fa-trash"> </span>
+
+                                            </button>
+                                        </a>
+
+
+
+                                    </center>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+</body>
+<script>
+    openNav();
+    $(document).ready(function () {
+        $('#view_stdnts').DataTable();
+    });
+
+</script>
+{% endblock %}
+
+</html>

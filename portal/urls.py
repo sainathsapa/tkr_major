@@ -71,9 +71,13 @@ urlpatterns = [
          name="Student View Books"),
     path('stdnt_view_book', students.stdnt_view_book,
          name="Student View Book"),
-#     path('posted_book_borrow_req', students.posted_book_borrow_req,
-#          name="Student View Book"),
+    path('posted_book_borrow_req', students.posted_book_borrow_req,
+         name="Student Add Req Book"),
 
+    path('stdnt_lib_pending_books', students.stdnt_lib_pending_books,
+         name="Student View Book"),
+    path('stdnt_del_borrow_req', students.stdnt_del_borrow_req,
+         name="Student View Book"),
 
 
 
@@ -107,11 +111,26 @@ urlpatterns = [
     path('lib_add_new_book', library.lib_add_new_book, name="Library Add Book"),
     path('lib_view_books', library.lib_view_books, name="Library View Book"),
     path('lib_edit_book', library.lib_edit_book, name="Library Edit Book"),
-    path('lib_del_book', library.lib_del_book, name="Library Edit Book")
+    path('lib_del_book', library.lib_del_book, name="Library Delete Book"),
+    path('lib_view_borrow_req', library.lib_view_borrow_req,
+         name="Library Pending Issue Book"),
+    path('lib_del_borrow_req', library.lib_del_borrow_req,
+         name="Library Pending Issue Book"),
+    path('lib_view_specific_book_req', library.lib_view_specific_book_req,
+         name="Library Pending Issue Book"),
+    path('lib_update_book_rq', library.lib_update_book_rq,
+         name="Library Pending Issue Book"),
 
-
-
-
+    path('lib_add_notice', library.lib_add_notices,
+         name="library Add Notice"),
+    path('lib_view_notices', library.lib_view_notices,
+         name="library View Notices"),
+    path('lib_view_notice', library.lib_view_notice,
+         name="library View Notices"),
+    path('lib_book_issues', library.lib_book_issues,
+         name="library View Notices"),
+ path('lib_pending_books', library.lib_pending_books,
+         name="library View Notices")
 
 
 

@@ -7,7 +7,7 @@ import urllib
 from django.http.response import Http404
 from flask import jsonify
 from numpy import amax
-from portal.models import Assignments, Books_Model, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model
+from portal.models import Assignments, Books_Model, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model, Book_Issue_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -500,32 +500,76 @@ def stdnt_view_book(request):
         return HttpResponseRedirect('login')
 
 
-# def posted_book_borrow_req(request):
-#     if 'stdnt_usr' in request.session:
+def posted_book_borrow_req(request):
+    if 'stdnt_usr' in request.session:
 
-#         if request.method == "GET":
-#             GETVAR = request.GET
-#             book_id = GETVAR.get('id')
-#             stdnt_roll = GETVAR.get('roll_num')
-#             nameVar = request.session['stdnt_usr']
-#             print(nameVar)
-#             getDetails = Students_Model.objects.filter(
-#                 stdnt_UserName=nameVar)[0]
-#             BooksData = Books_Model.objects.filter(
-#                 book_id=book_id)[0]
+        if request.method == "GET":
+            GETVAR = request.GET
+            book_id = GETVAR.get('id')
+            stdnt_roll = GETVAR.get('roll_num')
+            nameVar = request.session['stdnt_usr']
+            print(nameVar)
+            getDetails = Students_Model.objects.filter(
+                stdnt_UserName=nameVar)[0]
+            BooksData = Books_Model.objects.filter(
+                book_id=book_id)[0]
 
-#             # AddBookBorrowRequest = Book_Issue_Model(book_borrower_roll=getDetails.stdnt_Roll,book_issuer="Pending",book_requested_book_id=book_id).save()
-#             return render(request, 'student/stdnt_indvid_mk_payment.html')
-#             # else:
-#             #     return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
+            AddBookBorrowRequest = Book_Issue_Model(
+                book_borrower_roll=getDetails.stdnt_Roll, book_issuer="Pending", book_borrow_book_id=BooksData.book_special_category+"/"+book_id, book_issue_state="Pending").save()
+            return HttpResponseRedirect('stdnt_lib_pending_books?req_suc=succ')
+            # else:
+            #     return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
 
-#         else:
-#             return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
+        else:
+            return HttpResponseRedirect('stdnt_nw_payment?id=invalid')
 
-#     else:
-#         return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
 
 
+def stdnt_lib_pending_books(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.get(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            PendingBookReq = Book_Issue_Model.objects.filter(
+                book_borrower_roll=getDetails.stdnt_Roll, book_issue_state="Pending")
+
+            context = {
+                'userName': getDetails.stdnt_Name,
+                'roll_number': getDetails.stdnt_Roll,
+                'PendingBookReq': PendingBookReq,
+
+            }
+
+            return render(request, 'student/stdnt_view_pending_req.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def stdnt_del_borrow_req(request):
+    if 'stdnt_usr' in request.session:
+
+        try:
+            DeleteBookIssue = Book_Issue_Model.objects.get(
+                book_issue_id=request.GET.get('book_issue_id'))
+
+            # print(os.remove('assignments/'+DIR)
+
+            print(DeleteBookIssue.delete())
+
+            print("Book Req deleted successfully!")
+            return HttpResponseRedirect('stdnt_lib_pending_books?del=suc')
+
+        except Exception as e:
+            print(e)
+            return HttpResponseRedirect('stdnt_lib_pending_books?del=fail')
+
+    else:
+        return HttpResponseRedirect('login')
 def handle_uploaded_file(file_passwd, file):
 
     with open(file_passwd, 'wb+') as destination:

@@ -1,0 +1,67 @@
+{% extends 'lib_nav.html' %}
+{% block title %}
+    Add Notice
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5 ml-auto">
+                <div class="card border-1">
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-tasks"></span> Add New Notice</b>
+                    </h2>
+                    {% if request.GET.suc == 'added' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-square"></span> Sucessfull!</strong> Notice added
+                            Sucessfully
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data" id="form">
+                            {% csrf_token %}
+                        </div>
+                        <br>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    
+                                    <div class="form-group  col-md-6">
+                                        <label>
+                                            
+                                            <b><span class="fa fa-circle"></span> Name for Notice:</b>
+                                        </label>
+                                        <input class="form-control" name="notice_name" type="text" placeholder="Notice Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <label>
+                                                <b><span class="fa fa-file-signature"></span> Notice Description:</b> 
+                                            </label>
+                                            <span class="text-danger">MAX 5000 Char</span>
+                                            <br>
+                                            <textarea class="form-control" name="notice_description" rows="3" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-primary ml-3"
+                                   type="submit"
+                                   value="Add Notice"
+                                   id="submit_btn">
+                            <br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>openNav();</script>
+{% endblock %}
+</html>

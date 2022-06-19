@@ -76,28 +76,28 @@ Password Not Match
 
                     <option value="Opened"
                     
-                    {% ifequal assignmentData.assignment_submittion_status "Opened"  %}
+                    {% if assignmentData.assignment_submittion_status == "Opened"  %}
                             
                             selected
                             
-                            {% endifequal %}
+                            {% endif %}
                     
                     >Opened </option>
                     <option value="Not Opened"  
                     
-                    {% ifequal assignmentData.assignment_submittion_status "Not Opened"  %}
+                    {% if assignmentData.assignment_submittion_status == "Not Opened"  %}
                             
                             selected
                             
-                            {% endifequal %}
+                            {% endif %}
                             >Not Opened </option>
                     <option value="Re Upload File"
                     
-                     {% ifequal assignmentData.assignment_submittion_status "Re Upload File"  %}
+                     {% if assignmentData.assignment_submittion_status == "Re Upload File"  %}
                             
                             selected
                             
-                            {% endifequal %}
+                            {% endif %}
                     
                     > Re Upload File</option>
 
