@@ -33,6 +33,44 @@ def dept(request):
         
     return render(request, 'departments.html', send_Var)
 
+def civil(request):
+
+    send_Var={
+            'title':'Teegala Krisha Reddy Engineering College'
+        }
+        
+    return render(request, 'civil.html', send_Var)
+
+def ece(request):
+ 
+    send_Var={
+            'title':'Teegala Krisha Reddy Engineering College'
+        }
+        
+    return render(request, 'ece.html', send_Var)
+
+def it(request):
+     
+    send_Var={
+            'title':'Teegala Krisha Reddy Engineering College'
+        }
+        
+    return render(request, 'it.html', send_Var)
+def cse(request):
+     
+    send_Var={
+            'title':'Teegala Krisha Reddy Engineering College'
+        }
+        
+    return render(request, 'cse.html', send_Var)
+def eee(request):
+     
+    send_Var={
+            'title':'Teegala Krisha Reddy Engineering College'
+        }
+        
+    return render(request, 'eee.html', send_Var)
+
 def error_404(request, exception):
     domain = ''.join(['http://', get_current_site(request).domain])
     app_url = request.path
