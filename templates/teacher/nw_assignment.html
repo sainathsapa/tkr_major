@@ -13,12 +13,12 @@
   
               	
                 <h2 class="pl-2"><b><span class="fa fa-tasks"> </span> Add New Assignment</b></h2>
-            {% ifequal request.GET.suc 'added' %}
+            {% if request.GET.suc == 'added' %}
                             
  <div class="alert alert-success card m-2">
   <strong><span class="fa fa-check-square"> </span> Sucessfull!</strong> Assignment added Sucessfully   
 </div>                            
-                            {% endifequal %}
+                            {% endif %}
            <div class="card-body">
             <form action="" method="post" enctype="multipart/form-data" id="form">
                 {% csrf_token %}

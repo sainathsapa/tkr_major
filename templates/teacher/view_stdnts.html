@@ -11,28 +11,28 @@
     <div class="card col-md-12 border-1">
               	
                 <h2 class="pl-2"><b><span class="fa fa-users"> </span> View Students</b></h2>
-                {% ifequal id 'invalid' %}
+                {% if id == 'invalid' %}
                             
  <div class="alert alert-danger card m-2">
   <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
 </div>                            
-                            {% endifequal %}
+                            {% endif %}
 
-  {% ifequal request.GET.del 'fail' %}
+  {% if request.GET.del == 'fail' %}
                             
  <div class="alert alert-danger card m-2">
   <strong><span class="fa fa-times-circle"> </span> ERROR!</strong> Something Went Wrong.!
 </div>                            
-                            {% endifequal %}
+                            {% endif %}
 
 
 
-                            {% ifequal request.GET.del 'succ' %}
+                            {% if request.GET.del == 'succ' %}
                             
  <div class="alert alert-success card m-2">
   <strong><span class="fa fa-check-square"> </span> Sucessfull!</strong> Delete Student Sucessfull
 </div>                            
-                            {% endifequal %}
+                            {% endif %}
 
 
                            

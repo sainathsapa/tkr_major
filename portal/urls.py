@@ -40,6 +40,12 @@ urlpatterns = [
          name="Teacher View Assignments"),
     path('teach_view_submitted_assignments',
          teach.teach_view_submitted_assignments, name="Teacher View Assignments"),
+    path('teach_add_notice', teach.tech_add_notices,
+         name="Teacher Add Notice"),
+    path('teach_view_notices', teach.teach_view_notices,
+         name="Teacher View Notices"),
+    path('teach_view_notice', teach.teach_view_notice,
+         name="Teacher View Notices"),
 
 
     # Stdent Modules

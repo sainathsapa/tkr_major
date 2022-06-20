@@ -21,7 +21,7 @@
 									{% comment %} <p class="h6  text-dark p-0 m-0">Students in you control</p> {% endcomment %}
 								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{studentCount}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -40,7 +40,7 @@
 								<td>
 									<p class="h5  text-dark p-0 m-0">Student Submitted Assignments</p>								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{studentSubmittedAssignmentCount}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -59,7 +59,7 @@
 									<p class="h5  text-dark p-0 m-0">Pending Students Assignments</p>
 								</td>
 								<td>
-									<p class="h1 text-center text-dark pb-3 ">X</p>
+									<p class="h1 text-center text-dark pb-3 ">{{pendingAssignment}}</p>
 								</td>
 							</tr>
 						</tbody>
@@ -69,7 +69,7 @@
 
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-3">
+			{% comment %} <div class="col-sm-12 col-md-3">
 				<div class="btnb1  m-1">
 					<table width="100%" border="0" cellspacing="5" cellpadding="5">
 						<tbody>
@@ -87,7 +87,7 @@
 
 
 				</div>
-			</div>
+			</div> {% endcomment %}
 		</div>
 
 		<div class="row">
@@ -99,26 +99,11 @@
 			<div class="col-sm-12 col-md-4 p-3 " align="center">
 				<div class="blockcover">
 					<h2>Last 5 Submittions</h2>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
+					{% for data in pendingLimitforLoop %}
+					<marquee direction="up" behavior="slide" scrollamount="3" class="text-black">
+						<a class="text-black" style="text-decoration: none;"href="teach_view_assignment?id={{data.assignment_submittion_id}}">Student {{data.assignment_submited_Roll}} Has Submitted {{data.assignment_Model_ID}} on {{data.assignment_submittion_date}}</a>
 					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
-
-					<marquee direction="up" behavior="slide" scrollamount="3">
-						<a href="usr"> user X has Submitted on X time </a>
-					</marquee>
+					{% endfor %}
 					
 				</div>
 			</div>
