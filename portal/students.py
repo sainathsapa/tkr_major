@@ -570,6 +570,28 @@ def stdnt_del_borrow_req(request):
 
     else:
         return HttpResponseRedirect('login')
+def stdnt_results(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.get(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            PendingBookReq = Book_Issue_Model.objects.filter(
+                book_borrower_roll=getDetails.stdnt_Roll, book_issue_state="Pending")
+
+            context = {
+                'userName': getDetails.stdnt_Name,
+                'roll_number': getDetails.stdnt_Roll,
+                'PendingBookReq': PendingBookReq,
+
+            }
+
+            return render(request, 'student/stdnt_results.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
 def handle_uploaded_file(file_passwd, file):
 
     with open(file_passwd, 'wb+') as destination:

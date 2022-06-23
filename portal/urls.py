@@ -83,8 +83,10 @@ urlpatterns = [
     path('stdnt_lib_pending_books', students.stdnt_lib_pending_books,
          name="Student View Book"),
     path('stdnt_del_borrow_req', students.stdnt_del_borrow_req,
-         name="Student View Book"),
+         name="Student Del Req"),
 
+    path('stdnt_results', students.stdnt_results,
+         name="Student View Results"),
 
 
     # Accounts Module

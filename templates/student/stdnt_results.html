@@ -1,0 +1,58 @@
+{% extends 'student_nav.html' %}
+{% block title %}
+    View Results
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-clipboard-list"></span> View Results</b>
+                    </h2>
+                   
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                               id="list_assignments">
+                            <thead class="table-dark text-center">
+                                <th>S.I</th>
+                                <th>Subject</th>
+                                <th>Max Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>Addded By</th>
+                            </thead>
+                            <tbody>
+                                {% for data in FeesDetails %}
+                                    <tr>
+                                        <td id="{{ data.fees_id }}_fees_id">{{ data.fees_id }}</td>
+                                        <td id="{{ data.fees_id }}_fees_type">{{ data.fees_type }}</td>
+                                        <td id="{{ data.fees_id }}_fees_name">{{ data.fees_name }}</td>
+                                        <td id="{{ data.fees_id }}_fees_amount">{{ data.fees_amount }}</td>
+                                        <td>
+                                            <center>
+                                                <a href="stdnt_indvid_mk_payment?id={{ data.fees_id }}">
+                                                    <button type="button" class="btn btn-primary">
+                                                        <span class="fa fa-upload"></span> Make Payment
+                                                    </button>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script>
+    openNav();
+    $(document).ready(function () {
+        $('#list_assignments').DataTable();
+    });
+        </script>
+    {% endblock %}
+</html>

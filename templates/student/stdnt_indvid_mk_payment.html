@@ -122,12 +122,12 @@ var token =  $('input[name="csrfmiddlewaretoken"]').attr('value');
         var stdnt_roll="{{StudentData.stdnt_Roll}}";
         
     var options = {
-        "key": "rzp_test_xnUgwEozG0pal1", // Enter the Key ID generated from the Dashboard
-        //"key":"rzp_live_BOLqXU6xf1PX8n",
+        //"key": "rzp_test_xnUgwEozG0pal1", // Enter the Key ID generated from the Dashboard
+        "key":"rzp_live_BOLqXU6xf1PX8n",
         "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "TKR Edu Society",
-        "description": "{{ PaymentData.fees_type }}",
+        "description": "{{StudentData.stdnt_Roll}}/{{ PaymentData.fees_type }}",
         "image": "https://media-exp1.licdn.com/dms/image/C560BAQHsf5WHFju0TA/company-logo_200_200/0/1593229358214?e=2147483647&v=beta&t=-oYt4iGcLraYAaykuEA2_U0DHZTg_-WVi6CjWxXrwi8",
         // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 
