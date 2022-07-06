@@ -53,6 +53,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"  # or comfortabley anything else
+CACHES = {
+    'default': {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 ROOT_URLCONF = 'aibased.urls'
 
@@ -100,8 +111,8 @@ WSGI_APPLICATION = 'aibased.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': str(BASE_DIR / "db.sqlite3"),
     }
 }
@@ -125,8 +136,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -148,13 +157,11 @@ STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),     
+    os.path.join(BASE_DIR, "static"),
     'assignments/newAssign/'
 
 )
 DEBUG = True
 
-MEDIA_ROOT  = os.path.join(BASE_DIR, 'assignments')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assignments')
 MEDIA_URL = '/assignments/'
-
-
