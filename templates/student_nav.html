@@ -60,13 +60,13 @@
             </a>
           </div>
         </div>
-        {% comment %} <div class="card">
+        <div class="card">
           <div class="card-header">
             <a href="stdnt_attendance">
               <span class="fa fa-calendar-check"></span> Attendance
             </a>
           </div>
-        </div> {% endcomment %}
+        </div>
         <div class="card">
           <div class="card-header">
             <a class="collapsed card-link"
@@ -88,28 +88,27 @@
         </div>
         <div class="card">
           <div class="card-header">
-              <a class="collapsed card-link" data-toggle="collapse" href="#collapseBookIssues">
-                  <span class="fa fa-book"></span> Books
-              </a>
+            <a class="collapsed card-link"
+               data-toggle="collapse"
+               href="#collapseBookIssues">
+              <span class="fa fa-book"></span> Books
+            </a>
           </div>
           <div id="collapseBookIssues" class="collapse" data-parent="#accordion">
-              <div class="card-body">
-                  <a href="stdnt_new_borrow_req?branch=none">
-                      <span class="fa fa-plus"></span> New Borrow Request</a>
-              </div>
-              <div class="card-body">
-                  <a href="stdnt_lib_book_issues">
-                      <span class="fa fa-eye"></span> View Borrowed Books</a>
-              </div>
-              <div class="card-body">
-                  <a href="stdnt_lib_pending_books">
-                      <span class="fa fa-th-list"></span> Pending Books</a>
-              </div>
-              
-
+            <div class="card-body">
+              <a href="stdnt_new_borrow_req?branch=none">
+                <span class="fa fa-plus"></span> New Borrow Request</a>
+            </div>
+            <div class="card-body">
+              <a href="stdnt_lib_book_issues">
+                <span class="fa fa-eye"></span> View Borrowed Books</a>
+            </div>
+            <div class="card-body">
+              <a href="stdnt_lib_pending_books">
+                <span class="fa fa-th-list"></span> Pending Books</a>
+            </div>
           </div>
-      </div>
-
+        </div>
         <div class="card">
           <div class="card-header">
             <a class="collapsed card-link" data-toggle="collapse" href="#payments">
@@ -180,8 +179,12 @@
         </center>
         <div class="row">
           <div class="col-sm-6 col-md-6">
-            <div class="btntoggle" id="obtn" onclick="openNav()">&#9776;</div>
-            <div class="btntoggle" id="cbtn" onclick="closeNav()">X</div>
+            <div class="btntoggle" id="obtn" onclick="openNav()">
+              &#9776;
+            </div>
+            <div class="btntoggle" id="cbtn" onclick="closeNav()">
+              X
+            </div>
           </div>
           <div class="col-sm-6 col-md-6 ">
             <ul class="navbar-nav float-right">

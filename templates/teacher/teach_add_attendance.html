@@ -1,0 +1,106 @@
+{% extends 'faculity_nav.html' %}
+{% block title %}
+    Add Attendace
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5 ml-auto">
+                <div class="card border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-calendar-plus-o"></span> Add New Notice</b>
+                    </h2>
+                    <hr>
+                    {% if request.GET.suc == 'added' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-square"></span> Sucessfull!</strong> Attendace has been added successfully
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data" id="form">
+                            {% csrf_token %}
+                        </div>
+                        <br>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group  col-md-6">
+                                        <label>
+                                            <b><span class="fa fa-calendar"></span> Pick Date :</b>
+                                        </label>
+                                        <input class="form-control" name="date" type="date" id="datepick" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col col-md-12">
+                                        <div class="form-group">
+                                            <table class="table table-border table-striped table-hover">
+                                                <thead class="thead-dark">
+                                                    <th>Student Name</th>
+                                                    <th>Action</th>
+                                                </thead>
+                                                <tbody>
+                                                    {% for data in studentData %}
+                                                        <div class="col col-md-12">
+                                                            <tr>
+                                                                <td>
+                                                                    <b>{{ data.stdnt_Roll }} - {{ data.stdnt_Name }}</b>
+                                                                </td>
+                                                                <td>
+                                                                    <fieldset name="attendace">
+                                                                        <b>
+                                                                            <input class="form-check-input"
+                                                                                   type="radio"
+                                                                                   value="present"
+                                                                                   name="{{ data.stdnt_Roll }}"
+                                                                                   required>
+                                                                            <span class="text-success">- Present</span>
+                                                                            <br>
+                                                                            <input class="form-check-input"
+                                                                                   type="radio"
+                                                                                   value="absent"
+                                                                                   name="{{ data.stdnt_Roll }}"
+                                                                                   required>
+                                                                            <span class="text-danger">- Absent</span>
+                                                                        </b>
+                                                                    </fieldset>
+                                                                </td>
+                                                            </tr>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary ml-3"
+                               type="submit"
+                               value="Add Notice"
+                               id="submit_btn">
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>openNav();
+    $(document).ready(function () {
+        var today = new Date();
+        var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
+        var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
+        var year=today.getFullYear();
+
+        $("#datepick").attr('max', year + "-" + month + "-" + day);
+});
+</script>
+{% endblock %}
+</html>

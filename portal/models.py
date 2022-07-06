@@ -1,6 +1,9 @@
 from statistics import mode
 from this import d
 from django.db import models
+from django.contrib.postgres.fields import JSONField
+# from django.utils.translation import gettext_lazy as _
+
 
 
 class Students_Model(models.Model):
@@ -166,3 +169,12 @@ class Book_Issue_Model(models.Model):
     book_issuer = models.CharField(max_length=50)
     book_issue_date = models.DateTimeField(null=True, blank=True)
     book_issue_state = models.CharField(max_length=50)
+
+class Attendance_model(models.Model):
+    attendance_id= models.BigAutoField(primary_key=True)
+    attendance_added_by= models.CharField(max_length=50)
+    attendance_date=models.DateField(null=True, blank=True)
+    attendance_json_field= models.JSONField()
+    attendance_added_at=models.DateTimeField(auto_now_add=True)
+    attendance_update_at= models.DateTimeField(auto_now=True)
+    

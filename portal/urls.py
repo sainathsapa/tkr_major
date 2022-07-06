@@ -47,6 +47,10 @@ urlpatterns = [
     path('teach_view_notice', teach.teach_view_notice,
          name="Teacher View Notices"),
 
+    path('teach_add_attendance', teach.teach_add_attendance,
+         name="Teacher Add Attendance"),
+    path('teach_view_attendance', teach.teach_view_attendance,
+         name="Teacher View Attendance"),
 
     # Stdent Modules
 
@@ -87,6 +91,8 @@ urlpatterns = [
 
     path('stdnt_results', students.stdnt_results,
          name="Student View Results"),
+    path('stdnt_attendance', students.stdnt_attendance,
+         name="Student View Attendance"),
 
 
     # Accounts Module

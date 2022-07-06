@@ -1,9 +1,12 @@
 import os
 from django.conf import settings
 from django.db.models.query import QuerySet
+import json
+from calendar import Calendar
+from datetime import datetime, date
 
 from django.http.response import Http404
-from portal.models import Assignments, Notices_Model, Students_Model, Teachers_Model, Assignemnt_Submissions,Notices_Model
+from portal.models import Assignments, Attendance_model, Notices_Model, Students_Model, Teachers_Model, Assignemnt_Submissions, Notices_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -406,7 +409,7 @@ def tech_add_notices(request):
             getDetails = Teachers_Model.objects.get(
                 teach_UserName=request.session['UserName'])
             print(getDetails)
-            
+
             context = {
                 'userName': getDetails.teach_UserName
             }
@@ -435,7 +438,7 @@ def teach_view_notices(request):
             getDetails = Teachers_Model.objects.get(
                 teach_UserName=request.session['UserName'])
             print(getDetails)
-            
+
             NoticesData = Notices_Model.objects.all()
 
             context = {
@@ -469,6 +472,80 @@ def teach_view_notice(request):
             return HttpResponseRedirect('login')
     else:
         return HttpResponseRedirect('login')
+
+
+def teach_add_attendance(request):
+    if 'UserName' in request.session:
+        try:
+            getDetails = Teachers_Model.objects.get(
+                teach_UserName=request.session['UserName'])
+            print(getDetails)
+            getStudent = Students_Model.objects.all()
+
+            context = {
+                'userName': getDetails.teach_UserName,
+                'studentData': getStudent
+            }
+
+            if request.method == 'POST':
+                POST = request.POST
+                Attendance_JSON = {}
+                for student in getStudent:
+                    if student.stdnt_Roll in POST:
+                        # print(POST.get(student.stdnt_Roll))
+                        Attendance_JSON[student.stdnt_Roll] = POST.get(
+                            student.stdnt_Roll)
+
+                saveAttendance = Attendance_model(attendance_added_by=getDetails.teach_UserName, attendance_date=POST.get(
+                    'date'), attendance_json_field=Attendance_JSON).save()
+                # SaveNotice = Notices_Model(
+                #     notice_added_user=notice_added_user, notice_name=notice_name, notice_description=notice_description).save()
+                # print(SaveNotice)
+                return HttpResponseRedirect('teach_add_attendance?suc=added')
+
+            return render(request, 'teacher/teach_add_attendance.html', context)
+        except Teachers_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
+
+def teach_view_attendance(request):
+    if 'UserName' in request.session:
+        try:
+            getDetails = Teachers_Model.objects.get(
+                teach_UserName=request.session['UserName'])
+            print(getDetails)
+
+            context = {
+                'userName': getDetails.teach_UserName,
+
+            }
+
+            if request.method == 'POST':
+                pickDate = request.POST.get('pickdate')
+                selectAttendanceDateWise = Attendance_model.objects.filter(
+                    attendance_date=pickDate).count()
+                if selectAttendanceDateWise <= 0:
+                    return HttpResponseRedirect('teach_view_attendance?nodate=yes')
+                else:
+                    selectAttendanceDateWise = Attendance_model.objects.filter(
+                        attendance_date=pickDate)
+                    context['attendance_json_field'] = selectAttendanceDateWise[0].attendance_json_field
+                    context['added_dt'] = selectAttendanceDateWise[0].attendance_added_at
+                    context['attendance_added_by'] = selectAttendanceDateWise[0].attendance_added_by
+
+
+                    # for i in selectAttendanceDateWise[0].attendance_json_field:
+                    #     print(i, selectAttendanceDateWise[0].attendance_json_field[i])
+                    return render(request, 'teacher/teach_view_attendance_post.html', context)
+
+            return render(request, 'teacher/teach_view_attendance.html', context)
+        except Teachers_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
 
 def handle_uploaded_file(file_passwd, file):
 

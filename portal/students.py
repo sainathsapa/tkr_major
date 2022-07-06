@@ -7,7 +7,7 @@ import urllib
 from django.http.response import Http404
 from flask import jsonify
 from numpy import amax
-from portal.models import Assignments, Books_Model, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model, Book_Issue_Model
+from portal.models import Assignments, Books_Model, Students_Model, Teachers_Model, Assignemnt_Submissions, Fees_Model, Payments_Model, Notices_Model, Book_Issue_Model, Attendance_model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -570,6 +570,8 @@ def stdnt_del_borrow_req(request):
 
     else:
         return HttpResponseRedirect('login')
+
+
 def stdnt_results(request):
     if 'stdnt_usr' in request.session:
         try:
@@ -591,6 +593,31 @@ def stdnt_results(request):
             return HttpResponseRedirect('login')
     else:
         return HttpResponseRedirect('login')
+
+
+def stdnt_attendance(request):
+    if 'stdnt_usr' in request.session:
+        try:
+            getDetails = Students_Model.objects.get(
+                stdnt_UserName=request.session['stdnt_usr'])
+            print(getDetails)
+            AttendanceModel = Attendance_model.objects.all()
+            context = {
+                'userName': getDetails.stdnt_Name,
+                'roll_number': getDetails.stdnt_Roll,
+            }
+            listTemp = {}
+            for i in AttendanceModel:
+                listTemp[str(i.attendance_date)] = {'date': i.attendance_date,'present': i.attendance_json_field.get(
+                    getDetails.stdnt_Roll), 'addedBY': i.attendance_added_by, 'addedAt': i.attendance_added_at}
+            context['listTemp'] = listTemp
+
+            return render(request, 'student/stdnt_view_attendance.html', context)
+        except Students_Model.DoesNotExist:
+            return HttpResponseRedirect('login')
+    else:
+        return HttpResponseRedirect('login')
+
 
 def handle_uploaded_file(file_passwd, file):
 

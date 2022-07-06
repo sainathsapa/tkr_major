@@ -1,0 +1,76 @@
+{% extends 'faculity_nav.html' %}
+{% block title %}
+    View Notices
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="py-5 my-5">
+                <div class="card col-md-6 border-1">
+                    <h2>
+                        <span class="fa fa-eye"></span> View Attendance
+                    </h2>
+                    <hr>
+                    <div class="bg-white table-responsive-sm ml-2">
+                        <form action="#"
+                              method="post"
+                              id="myForm"
+                              class="form-horizontal"
+                              role="form">
+                            {% csrf_token %}
+                            <b>Pick Date:</b>
+                            <input class="form-control col-md-4"
+                                   type="date"
+                                   id="datepick"
+                                   name="pickdate"
+                                   required/>
+                            <br/>
+                            <input type="submit" class="btn btn-primary" value="View Attendance" />
+                        </form>
+                        <br>
+                        <table class="table table-responsive table-responsive table-bordered">
+                            <thead class="thead-dark">
+                                <th>#</th>
+                                <th>Student Roll Number</th>
+                                <th>Attendance</th>
+                                <th>Added at</th>
+                                <th>Added By</th>
+
+
+                            </thead>
+                            <tbody>
+                                {% for roll,present in attendance_json_field.items  %}
+                                    {% if present == "present" %}<tr class="bg-success text-white">{% endif %}
+                                        {% if present == "absent" %}<tr class="bg-danger text-white">{% endif %}
+
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ roll }}</td>
+                                    <td>{{ present }}</td>
+                                    <td>{{ added_dt }}</td>
+                                    <td>{{ attendance_added_by }}</td>
+
+                                    
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+    openNav();
+    $(document).ready(function () {
+        $('#view_stdnts').DataTable();
+    });
+    $(document).ready(function () {
+        var today = new Date();
+        var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
+        var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
+        var year=today.getFullYear();
+
+        $("#datepick").attr('max', year + "-" + month + "-" + day);
+});
+    </script>
+{% endblock %}
+</html>
