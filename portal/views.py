@@ -2,7 +2,7 @@ import os
 from django.conf import settings
 
 from django.http.response import Http404
-from portal.models import Students_Model, Teachers_Model, accounts_usr, Library_User_Model
+from portal.models import Students_Model, Teachers_Model, accounts_usr, Library_User_Model,Parent_Model
 from django.shortcuts import render, redirect
 # from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
@@ -107,6 +107,19 @@ def login(request):
                 return HttpResponseRedirect('lib_dashboard')
 
             except Library_User_Model.DoesNotExist:
+                context = {
+                    'err': "Check Credentials"
+                }
+            return render(request, 'login.html', context)
+        if(login_type == 'parent'):
+
+            try:
+                userDeat = Parent_Model.objects.get(parent_Mobile=request.POST.get(
+                    'login_UserName'), parent_PWD=request.POST.get('login_PWD'))
+                request.session['ParentUserName'] = userDeat.parent_Mobile
+                return HttpResponseRedirect('parent_dashboard')
+
+            except Parent_Model.DoesNotExist:
                 context = {
                     'err': "Check Credentials"
                 }

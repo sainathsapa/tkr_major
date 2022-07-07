@@ -5,7 +5,6 @@ from django.contrib.postgres.fields import JSONField
 # from django.utils.translation import gettext_lazy as _
 
 
-
 class Students_Model(models.Model):
     stdnt_id = models.BigAutoField(primary_key=True)
     stdnt_Name = models.CharField(max_length=50)
@@ -14,6 +13,8 @@ class Students_Model(models.Model):
     stdnt_DOB = models.CharField(max_length=50)
     stdnt_Gender = models.BooleanField(default=False)
     stdnt_Email = models.EmailField(max_length=254)
+    # stdnt_Parent_id=models.ForeignKey(
+    #     'Parent_Model', on_delete=models.CASCADE)
     stdnt_Mobile = models.CharField(max_length=10)
     stdnt_UserName = models.CharField(max_length=50)
     stdnt_PWD = models.CharField(max_length=250)
@@ -22,6 +23,20 @@ class Students_Model(models.Model):
 
     class Meta:
         db_table = "students_tbl"
+
+
+class Parent_Model(models.Model):
+    parent_id = models.BigAutoField(primary_key=True)
+    parent_Name = models.CharField(max_length=50)
+    parent_stdnt_Roll = models.ForeignKey(
+        'Students_Model', on_delete=models.CASCADE)
+    parebt_Email = models.EmailField(max_length=254)
+    parent_Mobile = models.CharField(max_length=10)
+    parent_PWD = models.CharField(max_length=250)
+    parent_is_Active = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "parent_tbl"
 
 
 class Fees_Model(models.Model):
@@ -170,11 +185,11 @@ class Book_Issue_Model(models.Model):
     book_issue_date = models.DateTimeField(null=True, blank=True)
     book_issue_state = models.CharField(max_length=50)
 
+
 class Attendance_model(models.Model):
-    attendance_id= models.BigAutoField(primary_key=True)
-    attendance_added_by= models.CharField(max_length=50)
-    attendance_date=models.DateField(null=True, blank=True)
-    attendance_json_field= models.JSONField()
-    attendance_added_at=models.DateTimeField(auto_now_add=True)
-    attendance_update_at= models.DateTimeField(auto_now=True)
-    
+    attendance_id = models.BigAutoField(primary_key=True)
+    attendance_added_by = models.CharField(max_length=50)
+    attendance_date = models.DateField(null=True, blank=True)
+    attendance_json_field = models.JSONField()
+    attendance_added_at = models.DateTimeField(auto_now_add=True)
+    attendance_update_at = models.DateTimeField(auto_now=True)

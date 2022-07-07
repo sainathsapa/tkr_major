@@ -1,0 +1,53 @@
+{% extends 'parent_nav.html' %}
+{% block title %}
+    View Attendance
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-calendar"></span> View Attendance</b>
+                    </h2>
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered" id="list_assignments">
+                            <thead class="table-dark text-center">
+                                <th>S.I</th>
+                                <th>Date</th>
+                                <th>Attendance</th>
+                                <th>Added By</th>
+                                <th>Added At</th>
+                            </thead>
+                        <tbody>
+                            {% for key,value in listTemp.items %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{ value.date }}</td>
+                                    <td>{{ value.present }}</td>
+                                    <td>{{ value.addedBY }}</td>
+                                    <td>{{ value.addedAt }}</td>
+
+
+
+                                
+                                </tr>
+
+                            {% endfor %}
+                         </tbody>
+                            </table> 
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            <script>
+    openNav();
+    $(document).ready(function () {
+        $('#list_assignments').DataTable();
+    });
+            </script>
+        {% endblock %}
+    </html>

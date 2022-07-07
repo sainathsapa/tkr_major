@@ -1,0 +1,86 @@
+{% extends 'student_nav.html' %}
+
+{% block title %} View Notices
+{% endblock title %}
+{% block body %}
+
+<body>
+    <div id="main">
+        <div class="container py-5 my-5">
+
+            <div class="card col-md-12 border-1">
+
+
+
+                <div class="conainer bg-white table-responsive-sm ml-2">
+                    <br>
+                    <h2>
+                        View Notices
+                    </h2>
+                    <hr>
+                    <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                        id="view_stdnts">
+                        <thead class="table-dark">
+                            <th>S.I</th>
+                            <th>Notice ID</th>
+                            <th>Notice Name</th>
+                            <th>Notice Added By</th>
+                            <th>Notice Added Date</th>
+                            <th>Action</th>
+
+
+                        </thead>
+                        <tbody>
+
+                            {% for data in NoticesData %}
+
+                            <tr>
+                                <td id="{{data.notice_id}}_notice_id">{{forloop.counter}}</td>
+                                <td id="{{data.notice_id}}_notice_name">TRKEC/2022/{{data.notice_id}}</td>
+                                <td id="{{data.notice_id}}notice_name">{{data.notice_name}}</td>
+                                <td id="{{data.notice_id}}notice_name">{{data.notice_added_user}} </td>
+                                <td id="{{data.notice_id}}notice_issue_date">{{data.notice_issue_date}}</td>
+                                <td>
+                                    <center>
+                                        <a href="parent_view_notice?notice_id={{data.notice_id}}">
+                                            <button type="button" class="btn btn-primary">
+
+                                                <span class="fa fa-eye"> </span> View Notice
+
+                                            </button>
+                                        </a>
+
+
+
+                                    </center>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+</body>
+<script>
+    openNav();
+    $(document).ready(function () {
+        $('#view_stdnts').DataTable();
+    });
+
+</script>
+{% endblock %}
+
+</html>

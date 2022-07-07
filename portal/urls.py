@@ -1,7 +1,7 @@
 from django.conf.urls import include
 from django.urls import path
 from django.views.generic import TemplateView
-from portal import accounts, views
+from portal import accounts, views, parent
 from portal import students
 from portal import teach
 from portal import library
@@ -148,8 +148,55 @@ urlpatterns = [
     path('lib_stdnt_view_books', library.lib_stdnt_view_books,
          name="library Student Book Borrow Notices"),
     path('lib_profile', library.lib_profile,
-         name="library Profile")
+         name="library Profile"),
 
+    # PARENT VIEWS
+    path('parent_dashboard', parent.parent_dash, name="Parent Dashboard"),
+    path('parent_stdnt_results', parent.parent_stdnt_results,
+         name="Parent Student View Results"),
+    path('parent_stdnt_attendance', parent.parent_stdnt_attendance,
+         name="Parent Student View Attendance"),
+    #     path('stdnt_profile', students.stdnt_profile, name="stdnt_profile"),
+
+    path('parent_stdnt_view_assignments', parent.parent_stdnt_view_assignments,
+         name="Parent Student View Assignt"),
+    path('parent_stdnt_lib_pending_books', parent.parent_stdnt_lib_pending_books,
+         name="Parent Student Pending Books"),
+
+    path('parent_view_notices', parent.parent_view_notices,
+         name="Student View Notices"),
+    path('parent_view_notice', parent.parent_view_notice,
+         name="Student View Notices"),
+    #     path('stdnt_del_assignment', students.stdnt_del_assignment,
+    #          name="Student View Assignt"),
+    #     path('stdnt_re_upload_assignment',
+    #          students.stdnt_re_upload_assignment, name="Student View Assignt"),
+    #     path('stdnt_nw_payment', students.stdnt_nw_payment,
+    #          name="Student New Payment"),
+    #     path('stdnt_indvid_mk_payment', students.stdnt_indvid_mk_payment,
+    #          name="Student New Payment"),
+    #     path('stdnt_view_payments', students.stdnt_view_payments,
+    #          name="Student View Payments"),
+
+    #     path('stdnt_view_notices', students.stdnt_view_notices,
+    #          name="Student View Notices"),
+    #     path('stdnt_view_notice', students.stdnt_view_notice,
+    #          name="Student View Notices"),
+    #     path('stdnt_new_borrow_req', students.stdnt_new_borrow_req,
+    #          name="Student View Books"),
+    #     path('stdnt_view_book', students.stdnt_view_book,
+    #          name="Student View Book"),
+    #     path('posted_book_borrow_req', students.posted_book_borrow_req,
+    #          name="Student Add Req Book"),
+
+    #
+    #     path('stdnt_del_borrow_req', students.stdnt_del_borrow_req,
+    #          name="Student Del Req"),
+
+    #     path('stdnt_results', students.stdnt_results,
+    #          name="Student View Results"),
+    #     path('stdnt_attendance', students.stdnt_attendance,
+    #          name="Student View Attendance"),
 
 
 

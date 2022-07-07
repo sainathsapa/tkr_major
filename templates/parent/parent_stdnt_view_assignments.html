@@ -1,0 +1,139 @@
+{% extends 'parent_nav.html' %}
+{% block title %}
+    Student Assignments
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-clipboard-list"></span> Student Assignments</b>
+                    </h2>
+                    {% if request.GET.id == 'invalid' %}
+                        <div class="alert alert-danger card m-2">
+                            <strong><span class="fa fa-times-circle"></span> ERROR!</strong> Something Went Wrong.!
+                        </div>
+                    {% endif %}
+                    {% if request.GET.suc == 'updated' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> File Uploaded Sucessfully.!
+                        </div>
+                    {% endif %}
+                    {% if request.GET.del == 'suc' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Assignment Deleted Sucessfully.!
+                        </div>
+                    {% endif %}
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                               id="list_assignments">
+                            <thead class="table-dark">
+                                <th>S.I</th>
+                                <th>Assignment ID</th>
+                                <th>Submitted Date</th>
+                                <th>Obtained Marks</th>
+                                <th>Submitted File</th>
+                                <th>Status</th>
+                                <th>Review</th>
+                                
+                            </thead>
+                            <tbody>
+                                {% for data in AssignmentListData %}
+                                    <tr>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_id">{{ forloop.counter }}</td>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_Model_ID">{{ data.assignment_Model_ID }}</td>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_submittion_date">{{ data.assignment_submittion_date }}</td>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_submited_Marks">{{ data.assignment_submited_Marks }}</td>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_submitted_File">
+                                            <a href="../{{ data.assignment_submitted_File }}" download>{{ data.assignment_submitted_File }}</a>
+                                        </td>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_status">{{ data.assignment_submittion_status }}</td>
+                                        <td id="{{ data.assignment_submittion_id }}_assignment_submittion_review">{{ data.assignment_submittion_review }}</td>
+                                       
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade"
+                 id="exampleModalCenter"
+                 tabindex="-1"
+                 role="dialog"
+                 aria-labelledby="exampleModalCenterTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <b>Assignment Submission ID : </b> <span id="assignmentID"></span>
+                            <br>
+                            <b>Marks: </b> <span id="marks"></span>
+                            <br>
+                            <b>Review : </b> <span id="review"></span>
+                            <br>
+                            <b>File : </b> <a href="" id="file" download></a>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="teach_del_stdnt?id={{ data.stdnt_id }}" id="assignmentDeleteLINK">
+                                <button type="button" class="btn btn-danger">
+                                    <span class="fa fa-minus-circle"></span> Confirm
+                                </button>
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <span class="fa fa-window-close"></span> Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script>
+  openNav();
+  $(document).ready(function () {
+    $('#list_assignments').DataTable();
+  });
+
+
+
+  function assignModalValue(idVar) {
+    var fullIDSelector = "#" + idVar;
+
+    var AssignmentID = fullIDSelector + "_assignment_id";
+    var AssignemtnMarks = fullIDSelector + "_assignment_submited_Marks";
+    var AssignmentReview = fullIDSelector + "_assignment_submittion_review";
+    var AssignmentFile = fullIDSelector + "_assignment_submitted_File";
+
+    var id = $(AssignmentID).text();
+    $("#assignmentID").text($(AssignmentID).text());
+    $("#marks").text($(AssignemtnMarks).text());
+    $("#review").text($(AssignmentReview).text());
+    $("#file").text('../' + $(AssignmentFile).text());
+    var passFileVal = '../' + $(AssignmentFile).text();
+    $('#file').attr('href', passFileVal);
+
+
+    var sendAttrLink = "stdnt_del_assignment?id=" + id;
+
+    $("#assignmentDeleteLINK").attr('href', sendAttrLink);
+
+  }
+
+
+
+
+
+        </script>
+    {% endblock %}
+</html>

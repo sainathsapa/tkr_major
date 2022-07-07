@@ -1,0 +1,67 @@
+{% extends 'student_nav.html' %}
+{% block title %}
+    Make Payments
+{% endblock title %}
+{% block body %}
+    <body>
+        <div id="main">
+            <div class="container py-5 my-5">
+                <div class="card col-md-12 border-1">
+                    <br>
+                    <h2 class="pl-2">
+                        <b><span class="fa fa-clipboard-list"></span> Make Payments</b>
+                    </h2>
+                    {% if request.GET.suca == 'success' %}
+                        <div class="alert alert-success card m-2">
+                            <strong><span class="fa fa-check-circle"></span> Sucessfull!</strong> Payment Made Sucessfully.!
+                        </div>
+                    {% endif %}
+                    {% if request.GET.sucl == 'failed' %}
+                        <div class="alert alert-danger card m-2">
+                            <strong><span class="fa fa-check-circle"></span> ERROR!</strong> Something went wrong.!
+                        </div>
+                    {% endif %}
+                    <div class="conainer bg-white table-responsive-sm ml-2">
+                        <br>
+                        <table class="table col-md-12 table-striped table-light table-hover table-sm  p-2 table-bordered"
+                               id="list_assignments">
+                            <thead class="table-dark text-center">
+                                <th>S.I</th>
+                                <th>Fees Type</th>
+                                <th>Fees Description</th>
+                                <th>Fees Amount</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                {% for data in FeesDetails %}
+                                    <tr>
+                                        <td id="{{ data.fees_id }}_fees_id">{{ data.fees_id }}</td>
+                                        <td id="{{ data.fees_id }}_fees_type">{{ data.fees_type }}</td>
+                                        <td id="{{ data.fees_id }}_fees_name">{{ data.fees_name }}</td>
+                                        <td id="{{ data.fees_id }}_fees_amount">{{ data.fees_amount }}</td>
+                                        <td>
+                                            <center>
+                                                <a href="stdnt_indvid_mk_payment?id={{ data.fees_id }}">
+                                                    <button type="button" class="btn btn-primary">
+                                                        <span class="fa fa-upload"></span> Make Payment
+                                                    </button>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </body>
+        <script>
+    openNav();
+    $(document).ready(function () {
+        $('#list_assignments').DataTable();
+    });
+        </script>
+    {% endblock %}
+</html>
